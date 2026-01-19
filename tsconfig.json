@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/react" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/themes" },
+    { "path": "./packages/test-utils" },
+    { "path": "./packages/plugins/utils" },
+    { "path": "./packages/plugins/heading" },
+    { "path": "./packages/plugins/font-color" },
+    { "path": "./packages/plugins/list" },
+    { "path": "./packages/plugins/history" }
+  ]
+}
