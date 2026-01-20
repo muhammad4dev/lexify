@@ -1,0 +1,42 @@
+{
+  "name": "@lexra/react",
+  "version": "0.0.1",
+  "description": "React bindings for Lexra",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@lexra/core": "workspace:*",
+    "@lexical/react": "^0.31.1",
+    "lexical": "^0.31.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.0",
+    "jsdom": "^26.0.0",
+    "react": "^19.1.0",
+    "tsup": "^8.4.0",
+    "vitest": "^3.0.9"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  }
+}
