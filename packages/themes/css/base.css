@@ -1,0 +1,239 @@
+/**
+ * @lexra/themes — base.css
+ * Sensible default styles for every class name emitted by baseTheme.
+ * Import with: import "@lexra/themes/css/base.css"
+ * All rules use the .lexra-* namespace; override freely in your project CSS.
+ */
+
+/* ─── Root & paragraph ─────────────────────────────────────────────────────── */
+
+.lexra-root {
+  position: relative;
+  outline: none;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: inherit;
+}
+
+.lexra-paragraph {
+  margin: 0 0 0.75em;
+}
+.lexra-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.lexra-quote {
+  margin: 0 0 0.75em 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid currentColor;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ─── Headings ─────────────────────────────────────────────────────────────── */
+
+.lexra-h1 { font-size: 2em;    font-weight: 700; margin: 0.67em 0; line-height: 1.2; }
+.lexra-h2 { font-size: 1.5em;  font-weight: 700; margin: 0.75em 0; line-height: 1.25; }
+.lexra-h3 { font-size: 1.25em; font-weight: 600; margin: 0.83em 0; line-height: 1.3; }
+.lexra-h4 { font-size: 1em;    font-weight: 600; margin: 1em 0;    line-height: 1.4; }
+.lexra-h5 { font-size: 0.875em; font-weight: 600; margin: 1em 0;   line-height: 1.4; }
+.lexra-h6 { font-size: 0.75em;  font-weight: 600; margin: 1em 0;   line-height: 1.4; }
+
+/* ─── Lists ────────────────────────────────────────────────────────────────── */
+
+.lexra-ul,
+.lexra-ol {
+  margin: 0 0 0.75em;
+  padding-left: 1.5em;
+}
+
+.lexra-ul { list-style-type: disc; }
+.lexra-ol { list-style-type: decimal; }
+
+.lexra-ul-depth-1 { list-style-type: disc; }
+.lexra-ul-depth-2 { list-style-type: circle; }
+.lexra-ul-depth-3 { list-style-type: square; }
+.lexra-ul-depth-4 { list-style-type: disc; }
+
+.lexra-ol-depth-1 { list-style-type: decimal; }
+.lexra-ol-depth-2 { list-style-type: lower-alpha; }
+.lexra-ol-depth-3 { list-style-type: lower-roman; }
+.lexra-ol-depth-4 { list-style-type: decimal; }
+
+.lexra-listitem {
+  margin: 0.25em 0;
+}
+
+.lexra-nested-list {
+  margin: 0.25em 0;
+  padding-left: 1.5em;
+}
+
+.lexra-nested-listitem {
+  list-style: none;
+}
+
+/* Checklist */
+.lexra-checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.lexra-listitem-checked,
+.lexra-listitem-unchecked {
+  position: relative;
+  padding-left: 1.75em;
+  list-style: none;
+}
+
+.lexra-listitem-checked::before,
+.lexra-listitem-unchecked::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 1.1em;
+  height: 1.1em;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+.lexra-listitem-checked::after {
+  content: "✓";
+  position: absolute;
+  left: 0.15em;
+  top: 0;
+  font-size: 0.85em;
+  font-weight: 700;
+}
+
+/* ─── Link ─────────────────────────────────────────────────────────────────── */
+
+.lexra-link {
+  color: #0066cc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lexra-link:hover {
+  color: #0044aa;
+}
+
+/* ─── Code ─────────────────────────────────────────────────────────────────── */
+
+.lexra-code-block {
+  display: block;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1em 1.25em;
+  margin: 0 0 0.75em;
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+    "DejaVu Sans Mono", monospace;
+  font-size: 0.875em;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* Prism-style syntax highlight classes */
+.lexra-code-comment, .lexra-code-prolog, .lexra-code-doctype, .lexra-code-cdata { color: #6a737d; }
+.lexra-code-punctuation { color: #586069; }
+.lexra-code-property, .lexra-code-tag, .lexra-code-boolean, .lexra-code-number,
+.lexra-code-constant, .lexra-code-symbol, .lexra-code-deleted { color: #005cc5; }
+.lexra-code-selector, .lexra-code-attr, .lexra-code-string, .lexra-code-char,
+.lexra-code-builtin, .lexra-code-inserted { color: #032f62; }
+.lexra-code-operator, .lexra-code-entity, .lexra-code-url, .lexra-code-variable { color: #e36209; }
+.lexra-code-atrule, .lexra-code-attr-value, .lexra-code-keyword { color: #d73a49; }
+.lexra-code-function, .lexra-code-class, .lexra-code-class-name { color: #6f42c1; }
+.lexra-code-regex, .lexra-code-important { color: #e36209; font-weight: bold; }
+.lexra-code-namespace { opacity: 0.7; }
+
+/* ─── Inline text formats ──────────────────────────────────────────────────── */
+
+.lexra-text-bold { font-weight: 700; }
+.lexra-text-italic { font-style: italic; }
+.lexra-text-underline { text-decoration: underline; }
+.lexra-text-strikethrough { text-decoration: line-through; }
+.lexra-text-underline-strikethrough { text-decoration: underline line-through; }
+
+.lexra-text-code {
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+    "DejaVu Sans Mono", monospace;
+  font-size: 0.875em;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+
+.lexra-text-subscript { font-size: 0.75em; vertical-align: sub; }
+.lexra-text-superscript { font-size: 0.75em; vertical-align: super; }
+.lexra-text-highlight { background-color: #fff3b0; border-radius: 2px; }
+
+/* ─── Block cursor ─────────────────────────────────────────────────────────── */
+
+.lexra-block-cursor {
+  display: block;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/* ─── HR ────────────────────────────────────────────────────────────────────── */
+
+.lexra-hr {
+  border: none;
+  border-top: 2px solid #e1e4e8;
+  margin: 1.5em 0;
+}
+
+/* ─── Mark / highlight annotation ─────────────────────────────────────────── */
+
+.lexra-mark { background-color: rgba(255, 212, 0, 0.4); }
+.lexra-mark-overlap { background-color: rgba(255, 165, 0, 0.4); }
+
+/* ─── Image ────────────────────────────────────────────────────────────────── */
+
+.lexra-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Indent ────────────────────────────────────────────────────────────────── */
+
+.lexra-indent { padding-left: 2em; }
+
+/* ─── Table ─────────────────────────────────────────────────────────────────── */
+
+.lexra-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 0.75em;
+  table-layout: fixed;
+}
+
+.lexra-table-row { border-bottom: 1px solid #e1e4e8; }
+
+.lexra-table-cell {
+  border: 1px solid #e1e4e8;
+  padding: 0.5em 0.75em;
+  vertical-align: top;
+  min-width: 4em;
+}
+
+.lexra-table-cell-header {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+.lexra-table-selected { outline: 2px solid #0066cc; }
+.lexra-table-selection { background-color: rgba(0, 102, 204, 0.08); }
+
+/* ─── LTR / RTL ─────────────────────────────────────────────────────────────── */
+
+.lexra-ltr { text-align: left; direction: ltr; }
+.lexra-rtl { text-align: right; direction: rtl; }
