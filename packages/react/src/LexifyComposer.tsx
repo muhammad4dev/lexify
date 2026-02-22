@@ -6,18 +6,18 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { createEditor } from "@lexra/core";
-import { LexraContext } from "./context.js";
-import type { LexraComposerProps } from "./types.js";
+import { createEditor } from "@lexify/core";
+import { LexifyContext } from "./context.js";
+import type { LexifyComposerProps } from "./types.js";
 import type { EditorState } from "lexical";
 
 // ─── Inner component — has access to LexicalComposerContext ──────────────────
 
 interface InnerProps {
-  composerProps: LexraComposerProps;
+  composerProps: LexifyComposerProps;
 }
 
-function LexraInner({ composerProps }: InnerProps): React.ReactElement {
+function LexifyInner({ composerProps }: InnerProps): React.ReactElement {
   const { namespace, plugins, onChange, children, className, placeholder } =
     composerProps;
 
@@ -25,20 +25,24 @@ function LexraInner({ composerProps }: InnerProps): React.ReactElement {
   // rendered editor, not a second detached Lexical instance.
   const [lexical] = useLexicalComposerContext();
 
-  const lexraEditorRef = useRef(
-    createEditor({ namespace, plugins: plugins ?? [], _lexicalEditor: lexical }),
+  const lexifyEditorRef = useRef(
+    createEditor({
+      namespace,
+      plugins: plugins ?? [],
+      _lexicalEditor: lexical,
+    }),
   );
 
   // Register any plugins added after initial mount
   useEffect(() => {
     for (const plugin of plugins ?? []) {
-      lexraEditorRef.current.registerPlugin(plugin);
+      lexifyEditorRef.current.registerPlugin(plugin);
     }
   }, [plugins]);
 
   // Tear down on unmount
   useEffect(() => {
-    const editor = lexraEditorRef.current;
+    const editor = lexifyEditorRef.current;
     return () => editor.destroy();
   }, []);
 
@@ -49,29 +53,27 @@ function LexraInner({ composerProps }: InnerProps): React.ReactElement {
     [onChange],
   );
 
-  const contextValue = useMemo(() => lexraEditorRef.current, []);
+  const contextValue = useMemo(() => lexifyEditorRef.current, []);
 
   return (
-    <LexraContext.Provider value={contextValue}>
+    <LexifyContext.Provider value={contextValue}>
       <RichTextPlugin
         contentEditable={
-          <ContentEditable className={className ?? "lexra-content-editable"} />
+          <ContentEditable className={className ?? "lexify-content-editable"} />
         }
-        placeholder={
-          <div className="lexra-placeholder">{placeholder}</div>
-        }
+        placeholder={<div className="lexify-placeholder">{placeholder}</div>}
         ErrorBoundary={LexicalErrorBoundary}
       />
       <HistoryPlugin />
       {onChange && <OnChangePlugin onChange={handleChange} />}
       {children}
-    </LexraContext.Provider>
+    </LexifyContext.Provider>
   );
 }
 
 // ─── Public component ─────────────────────────────────────────────────────────
 
-export function LexraComposer(props: LexraComposerProps): React.ReactElement {
+export function LexifyComposer(props: LexifyComposerProps): React.ReactElement {
   const { namespace, plugins, theme, initialState } = props;
 
   // Collect node classes from plugins — Lexical needs them at construction time
@@ -89,7 +91,9 @@ export function LexraComposer(props: LexraComposerProps): React.ReactElement {
       theme: (theme ?? {}) as any,
       nodes: nodes as any[],
       editorState: initialState ? JSON.stringify(initialState) : null,
-      onError: (error: Error) => { throw error; },
+      onError: (error: Error) => {
+        throw error;
+      },
     }),
     // intentionally only run once at mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,7 +102,7 @@ export function LexraComposer(props: LexraComposerProps): React.ReactElement {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <LexraInner composerProps={props} />
+      <LexifyInner composerProps={props} />
     </LexicalComposer>
   );
 }

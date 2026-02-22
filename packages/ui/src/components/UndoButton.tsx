@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useLexraEditor } from "@lexra/react";
-import { UNDO_COMMAND } from "@lexra/plugin-history";
+import { useLexifyEditor } from "@lexify/react";
+import { UNDO_COMMAND } from "@lexify/plugin-history";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 
@@ -8,7 +8,7 @@ export type UndoButtonProps = Omit<ToolbarButtonProps, "onClick">;
 
 export const UndoButton = React.forwardRef<HTMLButtonElement, UndoButtonProps>(
   ({ children = "↩", "aria-label": ariaLabel = "Undo", ...rest }, ref) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     return (
       <ToolbarButton
         ref={ref}

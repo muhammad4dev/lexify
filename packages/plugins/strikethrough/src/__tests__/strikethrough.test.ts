@@ -1,17 +1,20 @@
 import { describe, it, expect, vi } from "vitest";
 import { strikethroughPlugin, FORMAT_STRIKETHROUGH_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("strikethroughPlugin", () => {
   it("has the correct name", () => {
-    expect(strikethroughPlugin.name).toBe("lexra/strikethrough");
+    expect(strikethroughPlugin.name).toBe("lexify/strikethrough");
   });
 
   it("registers a handler for FORMAT_STRIKETHROUGH_COMMAND on mount", () => {
     const editor = createEditor({ namespace: "test" });
     const spy = vi.spyOn(editor, "registerCommandHandler");
     strikethroughPlugin.register(editor);
-    expect(spy).toHaveBeenCalledWith(FORMAT_STRIKETHROUGH_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      FORMAT_STRIKETHROUGH_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -48,7 +51,9 @@ describe("strikethroughPlugin", () => {
 
 describe("FORMAT_STRIKETHROUGH_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(FORMAT_STRIKETHROUGH_COMMAND.type).toBe("lexra:format:strikethrough");
+    expect(FORMAT_STRIKETHROUGH_COMMAND.type).toBe(
+      "lexify:format:strikethrough",
+    );
   });
 
   it("does not expose Lexical types", () => {

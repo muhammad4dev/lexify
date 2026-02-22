@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/plugin-utils",
+  "name": "@lexify/plugin-utils",
   "version": "0.0.1",
-  "description": "Shared utilities for Lexra plugins",
+  "description": "Shared utilities for Lexify plugins",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",

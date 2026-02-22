@@ -1,11 +1,15 @@
 import { describe, it, expect, vi } from "vitest";
-import { headingPlugin, SET_HEADING_COMMAND, REMOVE_HEADING_COMMAND } from "../index.js";
+import {
+  headingPlugin,
+  SET_HEADING_COMMAND,
+  REMOVE_HEADING_COMMAND,
+} from "../index.js";
 import type { HeadingTag } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("headingPlugin", () => {
   it("has the correct name", () => {
-    expect(headingPlugin.name).toBe("lexra/heading");
+    expect(headingPlugin.name).toBe("lexify/heading");
   });
 
   it("registers HeadingNode in nodes array", () => {
@@ -18,7 +22,10 @@ describe("headingPlugin", () => {
     const spy = vi.spyOn(editor, "registerCommandHandler");
     headingPlugin.register(editor);
     expect(spy).toHaveBeenCalledWith(SET_HEADING_COMMAND, expect.any(Function));
-    expect(spy).toHaveBeenCalledWith(REMOVE_HEADING_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      REMOVE_HEADING_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -65,7 +72,7 @@ describe("headingPlugin", () => {
 
 describe("SET_HEADING_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(SET_HEADING_COMMAND.type).toBe("lexra:block:heading");
+    expect(SET_HEADING_COMMAND.type).toBe("lexify:block:heading");
   });
 
   it("does not expose Lexical types", () => {
@@ -75,6 +82,6 @@ describe("SET_HEADING_COMMAND", () => {
 
 describe("REMOVE_HEADING_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(REMOVE_HEADING_COMMAND.type).toBe("lexra:block:heading:remove");
+    expect(REMOVE_HEADING_COMMAND.type).toBe("lexify:block:heading:remove");
   });
 });

@@ -1,16 +1,15 @@
 import * as React from "react";
-import { useLexraEditor } from "@lexra/react";
+import { useLexifyEditor } from "@lexify/react";
 import {
   SET_FONT_COLOR_COMMAND,
   REMOVE_FONT_COLOR_COMMAND,
-} from "@lexra/plugin-font-color";
-import { isValidColor } from "@lexra/plugin-utils";
+} from "@lexify/plugin-font-color";
+import { isValidColor } from "@lexify/plugin-utils";
 
-export interface FontColorInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "value" | "type"
-  > {
+export interface FontColorInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "value" | "type"
+> {
   value?: string;
   onChange?: (value: string) => void;
   /** Called when the submitted value fails color validation */
@@ -32,7 +31,7 @@ export const FontColorInput = React.forwardRef<
     },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     const [localValue, setLocalValue] = React.useState(value);
 
     React.useEffect(() => {

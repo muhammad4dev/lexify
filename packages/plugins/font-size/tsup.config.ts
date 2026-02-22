@@ -6,5 +6,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  external: ["lexical", "@lexical/link", "@lexra/core"],
+  external: ["lexical", "@lexical/link", "@lexify/core"],
 });

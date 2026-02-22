@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { LexraComposer } from "@lexra/react";
-import { baseTheme } from "@lexra/themes";
-import { boldPlugin } from "@lexra/plugin-bold";
-import { italicPlugin } from "@lexra/plugin-italic";
-import { underlinePlugin } from "@lexra/plugin-underline";
-import { strikethroughPlugin } from "@lexra/plugin-strikethrough";
-import { codePlugin } from "@lexra/plugin-code";
-import { linkPlugin } from "@lexra/plugin-link";
-import { fontSizePlugin } from "@lexra/plugin-font-size";
-import { fontColorPlugin } from "@lexra/plugin-font-color";
-import { textAlignPlugin } from "@lexra/plugin-text-align";
-import { headingPlugin } from "@lexra/plugin-heading";
-import { listPlugin } from "@lexra/plugin-list";
-import { historyPlugin } from "@lexra/plugin-history";
+import { LexifyComposer } from "@lexify/react";
+import { baseTheme } from "@lexify/themes";
+import { boldPlugin } from "@lexify/plugin-bold";
+import { italicPlugin } from "@lexify/plugin-italic";
+import { underlinePlugin } from "@lexify/plugin-underline";
+import { strikethroughPlugin } from "@lexify/plugin-strikethrough";
+import { codePlugin } from "@lexify/plugin-code";
+import { linkPlugin } from "@lexify/plugin-link";
+import { fontSizePlugin } from "@lexify/plugin-font-size";
+import { fontColorPlugin } from "@lexify/plugin-font-color";
+import { textAlignPlugin } from "@lexify/plugin-text-align";
+import { headingPlugin } from "@lexify/plugin-heading";
+import { listPlugin } from "@lexify/plugin-list";
+import { historyPlugin } from "@lexify/plugin-history";
 import { EditorToolbar } from "./components/EditorToolbar.js";
 import { EditorArea } from "./components/EditorArea.js";
 
@@ -38,7 +38,7 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <h1 className="app-title">
-          <span className="app-title-lexra">Lexra</span>
+          <span className="app-title-lexify">Lexify</span>
           <span className="app-title-demo"> Demo</span>
         </h1>
         <p className="app-subtitle">
@@ -54,8 +54,8 @@ export default function App() {
       </header>
 
       <main className="app-main">
-        <LexraComposer
-          namespace="lexra-demo"
+        <LexifyComposer
+          namespace="lexify-demo"
           plugins={PLUGINS}
           theme={baseTheme}
           className="editor-content"
@@ -68,7 +68,7 @@ export default function App() {
               <span>{charCount} characters</span>
             </div>
           </div>
-        </LexraComposer>
+        </LexifyComposer>
       </main>
     </div>
   );

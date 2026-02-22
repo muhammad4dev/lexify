@@ -1,6 +1,10 @@
 /* ─── Reset & base ───────────────────────────────────────────────────────────── */
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 :root {
   --color-bg: #ffffff;
@@ -13,8 +17,10 @@
   --color-error: #dc2626;
   --toolbar-height: 48px;
   --radius: 6px;
-  --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
 }
 
@@ -30,7 +36,8 @@
   }
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
@@ -41,7 +48,9 @@ html, body {
   min-height: 100vh;
 }
 
-a { color: var(--color-accent); }
+a {
+  color: var(--color-accent);
+}
 
 /* ─── App shell ───────────────────────────────────────────────────────────── */
 
@@ -63,7 +72,7 @@ a { color: var(--color-accent); }
   letter-spacing: -0.02em;
 }
 
-.app-title-lexra {
+.app-title-lexify {
   color: var(--color-accent);
 }
 
@@ -132,7 +141,9 @@ a { color: var(--color-accent); }
   font-size: 0.875rem;
   font-family: var(--font-sans);
   cursor: pointer;
-  transition: background 0.1s, border-color 0.1s;
+  transition:
+    background 0.1s,
+    border-color 0.1s;
   user-select: none;
 }
 
@@ -237,13 +248,13 @@ a { color: var(--color-accent); }
 /* ─── Override baseTheme for dark mode ────────────────────────────────────── */
 
 @media (prefers-color-scheme: dark) {
-  .lexra-text-code,
-  .lexra-code-block {
+  .lexify-text-code,
+  .lexify-code-block {
     background: #1f2937;
     border-color: #374151;
   }
 
-  .lexra-link {
+  .lexify-link {
     color: var(--color-accent);
   }
 }

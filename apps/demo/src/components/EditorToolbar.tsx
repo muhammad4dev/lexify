@@ -16,13 +16,13 @@ import {
   NumberedListButton,
   FontSizeInput,
   FontColorInput,
-} from "@lexra/ui";
-import { useLexraEditor } from "@lexra/react";
-import { INSERT_LINK_COMMAND } from "@lexra/plugin-link";
-import type { HeadingValue } from "@lexra/ui";
+} from "@lexify/ui";
+import { useLexifyEditor } from "@lexify/react";
+import { INSERT_LINK_COMMAND } from "@lexify/plugin-link";
+import type { HeadingValue } from "@lexify/ui";
 
 export function EditorToolbar() {
-  const editor = useLexraEditor();
+  const editor = useLexifyEditor();
   const [headingValue, setHeadingValue] = useState<HeadingValue>("paragraph");
   const [fontSize, setFontSize] = useState("");
   const [fontColor, setFontColor] = useState("");
@@ -70,16 +70,28 @@ export function EditorToolbar() {
 
       {/* Alignment */}
       <ToolbarGroup className="toolbar-group">
-        <TextAlignButton align="left" className="toolbar-btn" title="Align left">
+        <TextAlignButton
+          align="left"
+          className="toolbar-btn"
+          title="Align left"
+        >
           ←
         </TextAlignButton>
         <TextAlignButton align="center" className="toolbar-btn" title="Center">
           ↔
         </TextAlignButton>
-        <TextAlignButton align="right" className="toolbar-btn" title="Align right">
+        <TextAlignButton
+          align="right"
+          className="toolbar-btn"
+          title="Align right"
+        >
           →
         </TextAlignButton>
-        <TextAlignButton align="justify" className="toolbar-btn" title="Justify">
+        <TextAlignButton
+          align="justify"
+          className="toolbar-btn"
+          title="Justify"
+        >
           ⇔
         </TextAlignButton>
       </ToolbarGroup>
@@ -116,10 +128,15 @@ export function EditorToolbar() {
         <FontSizeInput
           id="font-size-input"
           value={fontSize}
-          onChange={(v) => { setFontSize(v); setInvalidSize(false); }}
+          onChange={(v) => {
+            setFontSize(v);
+            setInvalidSize(false);
+          }}
           onInvalidValue={() => setInvalidSize(true)}
           className={`toolbar-input${invalidSize ? " toolbar-input--error" : ""}`}
-          title={invalidSize ? "Invalid font size (e.g. 16px, 1.5em)" : "Font size"}
+          title={
+            invalidSize ? "Invalid font size (e.g. 16px, 1.5em)" : "Font size"
+          }
         />
       </ToolbarGroup>
 
@@ -130,10 +147,17 @@ export function EditorToolbar() {
         <FontColorInput
           id="font-color-input"
           value={fontColor}
-          onChange={(v) => { setFontColor(v); setInvalidColor(false); }}
+          onChange={(v) => {
+            setFontColor(v);
+            setInvalidColor(false);
+          }}
           onInvalidValue={() => setInvalidColor(true)}
           className={`toolbar-input${invalidColor ? " toolbar-input--error" : ""}`}
-          title={invalidColor ? "Invalid color (e.g. #ff0000, red, rgb(...))" : "Font color"}
+          title={
+            invalidColor
+              ? "Invalid color (e.g. #ff0000, red, rgb(...))"
+              : "Font color"
+          }
         />
       </ToolbarGroup>
     </Toolbar>

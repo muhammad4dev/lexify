@@ -20,11 +20,19 @@ function CharCounter({ onChange }: { onChange?: (n: number) => void }) {
     });
   }, [editor, onChange]);
 
-  return null;
+  return (
+    <button
+      onClick={() =>
+        console.log("Editor state:", editor.getEditorState().toJSON())
+      }
+    >
+      Log Editor State
+    </button>
+  );
 }
 
 /** Wrapper div around the editor content area. The ContentEditable is rendered
- *  by LexraComposer internally via RichTextPlugin. */
+ *  by LexifyComposer internally via RichTextPlugin. */
 export function EditorArea({ onCharCountChange }: EditorAreaProps) {
   return (
     <div className="editor-area">

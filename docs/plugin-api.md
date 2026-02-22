@@ -1,14 +1,14 @@
 # Plugin API
 
-Every Lexra feature is a plugin. This document covers the plugin contract,
+Every Lexify feature is a plugin. This document covers the plugin contract,
 how to write one, how to test it, and common patterns.
 
 ---
 
-## The `LexraPlugin` interface
+## The `LexifyPlugin` interface
 
 ```typescript
-interface LexraPlugin {
+interface LexifyPlugin {
   /** Unique name — used to deduplicate registrations. */
   readonly name: string;
 
@@ -24,7 +24,7 @@ interface LexraPlugin {
    * Called once when the plugin is registered with an editor instance.
    * Return a cleanup function that unregisters all handlers.
    */
-  register(editor: LexraEditor): () => void;
+  register(editor: LexifyEditor): () => void;
 }
 ```
 
@@ -36,15 +36,18 @@ Commands are typed tokens — plain objects with a `type` string and a phantom
 type parameter for the payload.
 
 ```typescript
-import { createCommand } from "@lexra/core";
-import type { LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyCommand } from "@lexify/core";
 
 // Create a command — the string is the stable type identifier
-export const MY_COMMAND: LexraCommand<string> = createCommand<string>("my-plugin:my-action");
+export const MY_COMMAND: LexifyCommand<string> = createCommand<string>(
+  "my-plugin:my-action",
+);
 ```
 
 **Rules:**
-- Command type strings must be unique across plugins. Use `lexra:<scope>:<action>` format.
+
+- Command type strings must be unique across plugins. Use `lexify:<scope>:<action>` format.
 - Command objects have only a `type` property at runtime — they never carry Lexical types.
 - Payload types are enforced via TypeScript generics; `void` means no payload.
 
@@ -57,16 +60,17 @@ A minimal plugin with one command:
 ```typescript
 // my-plugin.ts
 import { $getSelection, $isRangeSelection } from "lexical";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
-export const MY_FORMAT_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:format:my-format");
+export const MY_FORMAT_COMMAND: LexifyCommand<void> = createCommand<void>(
+  "lexify:format:my-format",
+);
 
-export const myPlugin: LexraPlugin = {
-  name: "lexra/my-format",
+export const myPlugin: LexifyPlugin = {
+  name: "lexify/my-format",
 
-  register(editor: LexraEditor): () => void {
+  register(editor: LexifyEditor): () => void {
     const unsub = editor.registerCommandHandler(MY_FORMAT_COMMAND, () => {
       editor.update(() => {
         const selection = $getSelection();
@@ -90,13 +94,15 @@ Plugins that require Lexical node classes declare them in `nodes[]`:
 ```typescript
 import { HeadingNode } from "@lexical/rich-text";
 
-export const headingPlugin: LexraPlugin = {
-  name: "lexra/heading",
-  nodes: [HeadingNode],          // collected before Lexical editor creation
+export const headingPlugin: LexifyPlugin = {
+  name: "lexify/heading",
+  nodes: [HeadingNode], // collected before Lexical editor creation
 
   register(editor) {
     const unsub = editor.registerCommandHandler(SET_HEADING_COMMAND, (tag) => {
-      editor.update(() => { /* ... */ });
+      editor.update(() => {
+        /* ... */
+      });
     });
     return unsub;
   },
@@ -108,20 +114,23 @@ They are passed to Lexical's `createEditor({ nodes })` internally.
 
 ---
 
-## The `LexraEditor` API
+## The `LexifyEditor` API
 
 ```typescript
-interface LexraEditor {
+interface LexifyEditor {
   readonly namespace: string;
 
   /** Register a plugin. Idempotent — same name is a no-op. */
-  registerPlugin(plugin: LexraPlugin): void;
+  registerPlugin(plugin: LexifyPlugin): void;
 
   /** Register a typed command handler. Returns an unsubscribe function. */
-  registerCommandHandler<T>(command: LexraCommand<T>, handler: (payload: T) => void): () => void;
+  registerCommandHandler<T>(
+    command: LexifyCommand<T>,
+    handler: (payload: T) => void,
+  ): () => void;
 
   /** Dispatch a command to all registered handlers. */
-  dispatchCommand<T>(command: LexraCommand<T>, payload: T): void;
+  dispatchCommand<T>(command: LexifyCommand<T>, payload: T): void;
 
   /**
    * Run a Lexical editor state mutation.
@@ -147,13 +156,14 @@ interface LexraEditor {
 ### Inline style (CSS property on TextNode)
 
 Used by `plugin-font-size` and `plugin-font-color`. Key steps:
+
 1. Validate the incoming value.
-2. Use `setStyleProperty(node.getStyle(), property, value)` from `@lexra/plugin-utils`.
+2. Use `setStyleProperty(node.getStyle(), property, value)` from `@lexify/plugin-utils`.
 3. Apply with `node.setStyle(newStyle)`.
 
 ```typescript
 import { $getSelection, $isRangeSelection, $isTextNode } from "lexical";
-import { setStyleProperty, isValidFontSize } from "@lexra/plugin-utils";
+import { setStyleProperty, isValidFontSize } from "@lexify/plugin-utils";
 
 editor.update(() => {
   const selection = $getSelection();
@@ -169,6 +179,7 @@ editor.update(() => {
 ### Block-level (ElementNode)
 
 Used by `plugin-heading` and `plugin-text-align`. Key steps:
+
 1. Get selection.
 2. Walk nodes to their block-level `ElementNode` ancestor.
 3. Use a `seen` Set to avoid processing the same block twice.
@@ -202,16 +213,16 @@ register(editor) {
 
 ## Testing plugins
 
-Plugins are tested without React — only `createEditor` from `@lexra/core`:
+Plugins are tested without React — only `createEditor` from `@lexify/core`:
 
 ```typescript
 import { describe, it, expect, vi } from "vitest";
 import { myPlugin, MY_FORMAT_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("myPlugin", () => {
   it("has the correct name", () => {
-    expect(myPlugin.name).toBe("lexra/my-format");
+    expect(myPlugin.name).toBe("lexify/my-format");
   });
 
   it("registers handler for MY_FORMAT_COMMAND", () => {
@@ -271,7 +282,7 @@ packages/plugins/my-plugin/
   tsup.config.ts
 ```
 
-`tsup.config.ts` must mark `lexical` and `@lexra/core` as external:
+`tsup.config.ts` must mark `lexical` and `@lexify/core` as external:
 
 ```typescript
 import { defineConfig } from "tsup";
@@ -281,6 +292,6 @@ export default defineConfig({
   dts: { compilerOptions: { composite: false } },
   sourcemap: true,
   clean: true,
-  external: ["lexical", "@lexra/core"],
+  external: ["lexical", "@lexify/core"],
 });
 ```

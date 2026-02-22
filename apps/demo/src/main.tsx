@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.js";
 import "./styles.css";
-import "@lexra/themes/css/base.css";
+import "@lexify/themes/css/base.css";
 
 const root = document.getElementById("root")!;
 createRoot(root).render(

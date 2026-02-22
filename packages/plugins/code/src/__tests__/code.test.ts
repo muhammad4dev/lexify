@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
 import { codePlugin, FORMAT_CODE_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("codePlugin", () => {
   it("has the correct name", () => {
-    expect(codePlugin.name).toBe("lexra/code");
+    expect(codePlugin.name).toBe("lexify/code");
   });
 
   it("registers a handler for FORMAT_CODE_COMMAND on mount", () => {
@@ -48,7 +48,7 @@ describe("codePlugin", () => {
 
 describe("FORMAT_CODE_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(FORMAT_CODE_COMMAND.type).toBe("lexra:format:code");
+    expect(FORMAT_CODE_COMMAND.type).toBe("lexify:format:code");
   });
 
   it("does not expose Lexical types", () => {

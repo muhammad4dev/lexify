@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/plugin-link",
+  "name": "@lexify/plugin-link",
   "version": "0.0.1",
-  "description": "Link plugin for Lexra",
+  "description": "Link plugin for Lexify",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -24,7 +26,7 @@
   },
   "dependencies": {
     "@lexical/link": "^0.31.1",
-    "@lexra/core": "workspace:*",
+    "@lexify/core": "workspace:*",
     "lexical": "^0.31.1"
   },
   "devDependencies": {

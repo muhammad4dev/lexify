@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/test-utils",
+  "name": "@lexify/test-utils",
   "version": "0.0.1",
-  "description": "Shared testing helpers for Lexra packages",
+  "description": "Shared testing helpers for Lexify packages",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -21,7 +23,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lexra/core": "workspace:*"
+    "@lexify/core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.4.0",

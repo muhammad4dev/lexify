@@ -1,19 +1,22 @@
 import { describe, it, expect, vi } from "vitest";
 import { boldPlugin, FORMAT_BOLD_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 // ─── Plugin contract ──────────────────────────────────────────────────────────
 
 describe("boldPlugin", () => {
   it("has the correct name", () => {
-    expect(boldPlugin.name).toBe("lexra/bold");
+    expect(boldPlugin.name).toBe("lexify/bold");
   });
 
   it("registers a handler for FORMAT_BOLD_COMMAND on mount", () => {
     const editor = createEditor({ namespace: "test" });
     const registerSpy = vi.spyOn(editor, "registerCommandHandler");
     boldPlugin.register(editor);
-    expect(registerSpy).toHaveBeenCalledWith(FORMAT_BOLD_COMMAND, expect.any(Function));
+    expect(registerSpy).toHaveBeenCalledWith(
+      FORMAT_BOLD_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function from register", () => {
@@ -55,7 +58,7 @@ describe("boldPlugin", () => {
 
 describe("FORMAT_BOLD_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(FORMAT_BOLD_COMMAND.type).toBe("lexra:format:bold");
+    expect(FORMAT_BOLD_COMMAND.type).toBe("lexify:format:bold");
   });
 
   it("does not expose any Lexical types on its shape", () => {

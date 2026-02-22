@@ -1,16 +1,15 @@
 import * as React from "react";
-import { useLexraEditor } from "@lexra/react";
+import { useLexifyEditor } from "@lexify/react";
 import {
   SET_FONT_SIZE_COMMAND,
   REMOVE_FONT_SIZE_COMMAND,
-} from "@lexra/plugin-font-size";
-import { isValidFontSize } from "@lexra/plugin-utils";
+} from "@lexify/plugin-font-size";
+import { isValidFontSize } from "@lexify/plugin-utils";
 
-export interface FontSizeInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "value" | "type"
-  > {
+export interface FontSizeInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "value" | "type"
+> {
   value?: string;
   onChange?: (value: string) => void;
   /** Called when the submitted value fails validation */
@@ -32,7 +31,7 @@ export const FontSizeInput = React.forwardRef<
     },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     const [localValue, setLocalValue] = React.useState(value);
 
     React.useEffect(() => {

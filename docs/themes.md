@@ -1,12 +1,12 @@
 # Themes
 
-Lexra's theming system maps Lexical node types to CSS class names.
+Lexify's theming system maps Lexical node types to CSS class names.
 
 ---
 
 ## How themes work
 
-When you pass a `theme` to `LexraComposer`, Lexra forwards it to Lexical's
+When you pass a `theme` to `LexifyComposer`, Lexify forwards it to Lexical's
 `createEditor()`. Lexical applies the class names from the theme object to the
 DOM elements it renders for each node type.
 
@@ -18,37 +18,37 @@ a data contract.
 ## Built-in themes
 
 ```bash
-pnpm add @lexra/themes
+pnpm add @lexify/themes
 ```
 
 ### `baseTheme`
 
 A complete theme object covering all standard Lexical node types. Class names
-use the `lexra-` prefix.
+use the `lexify-` prefix.
 
 ```tsx
-import { baseTheme } from "@lexra/themes";
-import "@lexra/themes/css/base.css"; // optional default styles
+import { baseTheme } from "@lexify/themes";
+import "@lexify/themes/css/base.css"; // optional default styles
 
-<LexraComposer theme={baseTheme} ...>
+<LexifyComposer theme={baseTheme} ...>
 ```
 
 ### `darkTheme`
 
 Auto-derived from `baseTheme`. Every class name gets a `-dark` suffix
-(e.g. `lexra-heading-h1` → `lexra-heading-h1-dark`). Pair it with a
+(e.g. `lexify-heading-h1` → `lexify-heading-h1-dark`). Pair it with a
 `prefers-color-scheme: dark` media query or toggle it in JavaScript.
 
 ```tsx
-import { darkTheme } from "@lexra/themes";
+import { darkTheme } from "@lexify/themes";
 ```
 
 ---
 
-## `LexraTheme` type
+## `LexifyTheme` type
 
 ```typescript
-interface LexraTextTheme {
+interface LexifyTextTheme {
   bold?: string;
   italic?: string;
   underline?: string;
@@ -61,16 +61,22 @@ interface LexraTextTheme {
   [key: string]: unknown;
 }
 
-interface LexraTheme {
+interface LexifyTheme {
   root?: string;
-  text?: LexraTextTheme;
+  text?: LexifyTextTheme;
   paragraph?: string;
   heading?: {
-    h1?: string; h2?: string; h3?: string;
-    h4?: string; h5?: string; h6?: string;
+    h1?: string;
+    h2?: string;
+    h3?: string;
+    h4?: string;
+    h5?: string;
+    h6?: string;
   };
   list?: {
-    ul?: string; ol?: string; listitem?: string;
+    ul?: string;
+    ol?: string;
+    listitem?: string;
     nested?: { listitem?: string; list?: string };
     listitemChecked?: string;
     listitemUnchecked?: string;
@@ -99,26 +105,26 @@ interface LexraTheme {
 
 ## Class names in `baseTheme`
 
-| Node type | Class name |
-|---|---|
-| Root | `lexra-root` |
-| Paragraph | `lexra-paragraph` |
-| `h1`–`h6` | `lexra-heading-h1` … `lexra-heading-h6` |
-| Unordered list | `lexra-list-ul` |
-| Ordered list | `lexra-list-ol` |
-| List item | `lexra-list-item` |
-| Checked list item | `lexra-list-item-checked` |
-| Unchecked list item | `lexra-list-item-unchecked` |
-| Link | `lexra-link` |
-| Code block | `lexra-code` |
-| Inline code | `lexra-text-code` |
-| Bold | `lexra-text-bold` |
-| Italic | `lexra-text-italic` |
-| Underline | `lexra-text-underline` |
-| Strikethrough | `lexra-text-strikethrough` |
-| LTR | `lexra-ltr` |
-| RTL | `lexra-rtl` |
-| … | … |
+| Node type           | Class name                                |
+| ------------------- | ----------------------------------------- |
+| Root                | `lexify-root`                             |
+| Paragraph           | `lexify-paragraph`                        |
+| `h1`–`h6`           | `lexify-heading-h1` … `lexify-heading-h6` |
+| Unordered list      | `lexify-list-ul`                          |
+| Ordered list        | `lexify-list-ol`                          |
+| List item           | `lexify-list-item`                        |
+| Checked list item   | `lexify-list-item-checked`                |
+| Unchecked list item | `lexify-list-item-unchecked`              |
+| Link                | `lexify-link`                             |
+| Code block          | `lexify-code`                             |
+| Inline code         | `lexify-text-code`                        |
+| Bold                | `lexify-text-bold`                        |
+| Italic              | `lexify-text-italic`                      |
+| Underline           | `lexify-text-underline`                   |
+| Strikethrough       | `lexify-text-strikethrough`               |
+| LTR                 | `lexify-ltr`                              |
+| RTL                 | `lexify-rtl`                              |
+| …                   | …                                         |
 
 ---
 
@@ -127,9 +133,9 @@ interface LexraTheme {
 Extend `baseTheme` or build from scratch:
 
 ```typescript
-import type { LexraTheme } from "@lexra/themes";
+import type { LexifyTheme } from "@lexify/themes";
 
-export const myTheme: LexraTheme = {
+export const myTheme: LexifyTheme = {
   paragraph: "my-para",
   heading: {
     h1: "my-h1",
@@ -145,9 +151,9 @@ export const myTheme: LexraTheme = {
 Or start from `baseTheme` and override:
 
 ```typescript
-import { baseTheme } from "@lexra/themes";
+import { baseTheme } from "@lexify/themes";
 
-export const myTheme: LexraTheme = {
+export const myTheme: LexifyTheme = {
   ...baseTheme,
   paragraph: "my-custom-paragraph",
   heading: {
@@ -161,17 +167,17 @@ export const myTheme: LexraTheme = {
 
 ## CSS variable overrides
 
-`@lexra/themes/css/base.css` defines all styles in terms of CSS custom properties.
+`@lexify/themes/css/base.css` defines all styles in terms of CSS custom properties.
 Override them in your own stylesheet:
 
 ```css
 :root {
-  --lexra-font-family: "Inter", sans-serif;
-  --lexra-font-size: 1rem;
-  --lexra-line-height: 1.6;
-  --lexra-code-bg: #1e1e1e;
-  --lexra-code-color: #d4d4d4;
-  --lexra-link-color: #0070f3;
+  --lexify-font-family: "Inter", sans-serif;
+  --lexify-font-size: 1rem;
+  --lexify-line-height: 1.6;
+  --lexify-code-bg: #1e1e1e;
+  --lexify-code-color: #d4d4d4;
+  --lexify-link-color: #0070f3;
 }
 ```
 
@@ -186,5 +192,5 @@ To toggle dark mode programmatically, swap the theme object:
 ```tsx
 const [isDark, setIsDark] = useState(false);
 
-<LexraComposer theme={isDark ? darkTheme : baseTheme} ...>
+<LexifyComposer theme={isDark ? darkTheme : baseTheme} ...>
 ```

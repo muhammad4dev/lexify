@@ -1,13 +1,13 @@
 import { $getSelection, $isRangeSelection } from "lexical";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
-export const FORMAT_STRIKETHROUGH_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:format:strikethrough");
+export const FORMAT_STRIKETHROUGH_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:format:strikethrough");
 
-export const strikethroughPlugin: LexraPlugin = {
-  name: "lexra/strikethrough",
-  register(editor: LexraEditor): () => void {
+export const strikethroughPlugin: LexifyPlugin = {
+  name: "lexify/strikethrough",
+  register(editor: LexifyEditor): () => void {
     return editor.registerCommandHandler(FORMAT_STRIKETHROUGH_COMMAND, () => {
       editor.update(() => {
         const selection = $getSelection();

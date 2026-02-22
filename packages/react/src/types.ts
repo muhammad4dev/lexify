@@ -1,13 +1,13 @@
 import type { SerializedEditorState } from "lexical";
-import type { LexraPlugin, LexraTheme } from "@lexra/core";
+import type { LexifyPlugin, LexifyTheme } from "@lexify/core";
 
-export interface LexraComposerProps {
+export interface LexifyComposerProps {
   /** Unique namespace for this editor instance. */
   namespace: string;
   /** Plugins to register on mount. */
-  plugins?: LexraPlugin[];
+  plugins?: LexifyPlugin[];
   /** Theme class names to apply to this editor. */
-  theme?: LexraTheme;
+  theme?: LexifyTheme;
   /**
    * Uncontrolled mode: initial serialized state to populate the editor.
    * Ignored if `value` is provided.

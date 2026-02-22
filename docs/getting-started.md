@@ -1,6 +1,6 @@
-# Getting Started with Lexra
+# Getting Started with Lexify
 
-This guide walks you through installing Lexra, creating an editor, registering
+This guide walks you through installing Lexify, creating an editor, registering
 plugins, mounting it in React, applying a theme, and building a custom toolbar.
 
 ---
@@ -12,32 +12,32 @@ plugins, mounting it in React, applying a theme, and building a custom toolbar.
 pnpm add lexical @lexical/react
 
 # Core packages
-pnpm add @lexra/core @lexra/react
+pnpm add @lexify/core @lexify/react
 
 # Optional: theme + UI toolbar
-pnpm add @lexra/themes @lexra/ui
+pnpm add @lexify/themes @lexify/ui
 
 # Plugins (install only what you need)
-pnpm add @lexra/plugin-bold @lexra/plugin-italic @lexra/plugin-heading
+pnpm add @lexify/plugin-bold @lexify/plugin-italic @lexify/plugin-heading
 ```
 
 ---
 
 ## 2. Create a basic editor
 
-`LexraComposer` is the React entry point. Pass a `namespace` and an array of
+`LexifyComposer` is the React entry point. Pass a `namespace` and an array of
 `plugins`. It renders a `contenteditable` area via Lexical's `RichTextPlugin`
 internally.
 
 ```tsx
 // MyEditor.tsx
-import { LexraComposer } from "@lexra/react";
-import { boldPlugin } from "@lexra/plugin-bold";
-import { italicPlugin } from "@lexra/plugin-italic";
+import { LexifyComposer } from "@lexify/react";
+import { boldPlugin } from "@lexify/plugin-bold";
+import { italicPlugin } from "@lexify/plugin-italic";
 
 export function MyEditor() {
   return (
-    <LexraComposer
+    <LexifyComposer
       namespace="my-editor"
       plugins={[boldPlugin, italicPlugin]}
     />
@@ -47,17 +47,17 @@ export function MyEditor() {
 
 ### Props
 
-| Prop | Type | Description |
-|---|---|---|
-| `namespace` | `string` | Unique identifier for this editor instance |
-| `plugins` | `LexraPlugin[]` | Plugins to register at mount |
-| `theme` | `LexraTheme` | CSS class name map (see [themes](themes.md)) |
-| `className` | `string` | Applied to the `contenteditable` element |
-| `placeholder` | `ReactNode` | Shown when editor is empty |
-| `initialState` | `SerializedEditorState` | Uncontrolled initial state |
-| `value` | `SerializedEditorState` | Controlled state |
-| `onChange` | `(state) => void` | Called on every state change |
-| `children` | `ReactNode` | Rendered inside the composer tree |
+| Prop           | Type                    | Description                                  |
+| -------------- | ----------------------- | -------------------------------------------- |
+| `namespace`    | `string`                | Unique identifier for this editor instance   |
+| `plugins`      | `LexifyPlugin[]`        | Plugins to register at mount                 |
+| `theme`        | `LexifyTheme`           | CSS class name map (see [themes](themes.md)) |
+| `className`    | `string`                | Applied to the `contenteditable` element     |
+| `placeholder`  | `ReactNode`             | Shown when editor is empty                   |
+| `initialState` | `SerializedEditorState` | Uncontrolled initial state                   |
+| `value`        | `SerializedEditorState` | Controlled state                             |
+| `onChange`     | `(state) => void`       | Called on every state change                 |
+| `children`     | `ReactNode`             | Rendered inside the composer tree            |
 
 ---
 
@@ -67,41 +67,43 @@ Plugins are plain objects with a `name`, optional `nodes[]`, and a `register()`
 function. Pass them in the `plugins` array:
 
 ```tsx
-import { boldPlugin } from "@lexra/plugin-bold";
-import { headingPlugin } from "@lexra/plugin-heading";
-import { listPlugin } from "@lexra/plugin-list";
+import { boldPlugin } from "@lexify/plugin-bold";
+import { headingPlugin } from "@lexify/plugin-heading";
+import { listPlugin } from "@lexify/plugin-list";
 
-<LexraComposer
+<LexifyComposer
   namespace="my-editor"
   plugins={[boldPlugin, headingPlugin, listPlugin]}
-/>
+/>;
 ```
 
 Plugin registration is **idempotent** — passing the same plugin twice is safe.
 
 > **Important:** plugins that register custom Lexical nodes (e.g. `headingPlugin`,
 > `linkPlugin`, `listPlugin`) must be in the `plugins` array passed to
-> `LexraComposer` so their nodes are registered at editor construction time.
+> `LexifyComposer` so their nodes are registered at editor construction time.
 > Adding them dynamically after mount will not register the nodes.
 
 ---
 
 ## 4. Dispatch commands from a toolbar
 
-Inside the `LexraComposer` tree, call `useLexraEditor()` to get the editor
+Inside the `LexifyComposer` tree, call `useLexifyEditor()` to get the editor
 instance and dispatch commands:
 
 ```tsx
-import { useLexraEditor } from "@lexra/react";
-import { FORMAT_BOLD_COMMAND } from "@lexra/plugin-bold";
-import { SET_HEADING_COMMAND } from "@lexra/plugin-heading";
+import { useLexifyEditor } from "@lexify/react";
+import { FORMAT_BOLD_COMMAND } from "@lexify/plugin-bold";
+import { SET_HEADING_COMMAND } from "@lexify/plugin-heading";
 
 function MyToolbar() {
-  const editor = useLexraEditor();
+  const editor = useLexifyEditor();
 
   return (
     <div>
-      <button onClick={() => editor.dispatchCommand(FORMAT_BOLD_COMMAND, undefined)}>
+      <button
+        onClick={() => editor.dispatchCommand(FORMAT_BOLD_COMMAND, undefined)}
+      >
         Bold
       </button>
       <button onClick={() => editor.dispatchCommand(SET_HEADING_COMMAND, "h2")}>
@@ -112,20 +114,20 @@ function MyToolbar() {
 }
 ```
 
-The toolbar must be rendered **as a child** of `LexraComposer`:
+The toolbar must be rendered **as a child** of `LexifyComposer`:
 
 ```tsx
-<LexraComposer namespace="my-editor" plugins={[boldPlugin, headingPlugin]}>
+<LexifyComposer namespace="my-editor" plugins={[boldPlugin, headingPlugin]}>
   <MyToolbar />
-</LexraComposer>
+</LexifyComposer>
 ```
 
 ---
 
 ## 5. Use pre-built toolbar components
 
-`@lexra/ui` exports unstyled, accessible toolbar components wired to their
-respective plugins. They call `useLexraEditor()` internally:
+`@lexify/ui` exports unstyled, accessible toolbar components wired to their
+respective plugins. They call `useLexifyEditor()` internally:
 
 ```tsx
 import {
@@ -141,7 +143,7 @@ import {
   NumberedListButton,
   FontSizeInput,
   FontColorInput,
-} from "@lexra/ui";
+} from "@lexify/ui";
 
 function MyToolbar() {
   return (
@@ -187,28 +189,28 @@ is inside bold text):
 ## 6. Apply a theme
 
 ```bash
-pnpm add @lexra/themes
+pnpm add @lexify/themes
 ```
 
 ```tsx
-import { baseTheme } from "@lexra/themes";
-import "@lexra/themes/css/base.css"; // optional default styles
+import { baseTheme } from "@lexify/themes";
+import "@lexify/themes/css/base.css"; // optional default styles
 
-<LexraComposer namespace="my-editor" plugins={[...]} theme={baseTheme}>
+<LexifyComposer namespace="my-editor" plugins={[...]} theme={baseTheme}>
   ...
-</LexraComposer>
+</LexifyComposer>
 ```
 
 The `theme` object maps Lexical node types to CSS class names. The CSS file
-provides sensible defaults for all `lexra-*` classes. Override them in your own
+provides sensible defaults for all `lexify-*` classes. Override them in your own
 stylesheet.
 
 For a dark theme:
 
 ```tsx
-import { darkTheme } from "@lexra/themes";
+import { darkTheme } from "@lexify/themes";
 
-<LexraComposer theme={darkTheme} ...>
+<LexifyComposer theme={darkTheme} ...>
 ```
 
 See [`docs/themes.md`](themes.md) for full customization options.
@@ -218,7 +220,7 @@ See [`docs/themes.md`](themes.md) for full customization options.
 ## 7. Listen to state changes
 
 ```tsx
-<LexraComposer
+<LexifyComposer
   namespace="my-editor"
   plugins={[boldPlugin]}
   onChange={(state) => {
@@ -237,7 +239,7 @@ Pass `value` + `onChange` for fully controlled state:
 ```tsx
 const [state, setState] = useState<SerializedEditorState>(initialState);
 
-<LexraComposer
+<LexifyComposer
   namespace="my-editor"
   plugins={[...]}
   value={state}

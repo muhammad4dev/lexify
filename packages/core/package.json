@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/core",
+  "name": "@lexify/core",
   "version": "0.0.1",
-  "description": "Lexra engine abstraction — no React, no UI",
+  "description": "Lexify engine abstraction — no React, no UI",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

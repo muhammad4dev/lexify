@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { textAlignPlugin, SET_TEXT_ALIGN_COMMAND } from "../index.js";
 import type { TextAlignValue } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("textAlignPlugin", () => {
   it("has the correct name", () => {
-    expect(textAlignPlugin.name).toBe("lexra/text-align");
+    expect(textAlignPlugin.name).toBe("lexify/text-align");
   });
 
   it("has no nodes (no custom node registration needed)", () => {
@@ -16,7 +16,10 @@ describe("textAlignPlugin", () => {
     const editor = createEditor({ namespace: "test" });
     const spy = vi.spyOn(editor, "registerCommandHandler");
     textAlignPlugin.register(editor);
-    expect(spy).toHaveBeenCalledWith(SET_TEXT_ALIGN_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      SET_TEXT_ALIGN_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -42,7 +45,14 @@ describe("textAlignPlugin", () => {
   });
 
   it("accepts all valid alignment values", () => {
-    const values: TextAlignValue[] = ["left", "right", "center", "justify", "start", "end"];
+    const values: TextAlignValue[] = [
+      "left",
+      "right",
+      "center",
+      "justify",
+      "start",
+      "end",
+    ];
     const editor = createEditor({ namespace: "test" });
     const updateSpy = vi.spyOn(editor, "update");
     textAlignPlugin.register(editor);
@@ -55,7 +65,7 @@ describe("textAlignPlugin", () => {
 
 describe("SET_TEXT_ALIGN_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(SET_TEXT_ALIGN_COMMAND.type).toBe("lexra:block:text-align");
+    expect(SET_TEXT_ALIGN_COMMAND.type).toBe("lexify:block:text-align");
   });
 
   it("does not expose Lexical types", () => {

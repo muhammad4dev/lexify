@@ -8,7 +8,7 @@ import {
   setStyleProperty,
   isValidFontSize,
 } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 // ─── style-utils ─────────────────────────────────────────────────────────────
 
@@ -51,7 +51,10 @@ describe("serializeStyleMap", () => {
   });
 
   it("serialises multiple entries with semicolon separator", () => {
-    const m = new Map([["font-size", "16px"], ["color", "red"]]);
+    const m = new Map([
+      ["font-size", "16px"],
+      ["color", "red"],
+    ]);
     expect(serializeStyleMap(m)).toBe("font-size: 16px; color: red");
   });
 
@@ -66,14 +69,22 @@ describe("setStyleProperty", () => {
   });
 
   it("updates an existing property", () => {
-    const result = setStyleProperty("font-size: 14px; color: red", "font-size", "18px");
+    const result = setStyleProperty(
+      "font-size: 14px; color: red",
+      "font-size",
+      "18px",
+    );
     const m = parseStyleString(result);
     expect(m.get("font-size")).toBe("18px");
     expect(m.get("color")).toBe("red");
   });
 
   it("preserves unrelated properties", () => {
-    const result = setStyleProperty("color: blue; font-weight: bold", "font-size", "12px");
+    const result = setStyleProperty(
+      "color: blue; font-weight: bold",
+      "font-size",
+      "12px",
+    );
     const m = parseStyleString(result);
     expect(m.get("color")).toBe("blue");
     expect(m.get("font-weight")).toBe("bold");
@@ -81,7 +92,11 @@ describe("setStyleProperty", () => {
   });
 
   it("removes a property when value is null", () => {
-    const result = setStyleProperty("font-size: 16px; color: red", "font-size", null);
+    const result = setStyleProperty(
+      "font-size: 16px; color: red",
+      "font-size",
+      null,
+    );
     const m = parseStyleString(result);
     expect(m.has("font-size")).toBe(false);
     expect(m.get("color")).toBe("red");
@@ -105,10 +120,17 @@ describe("setStyleProperty", () => {
 });
 
 describe("isValidFontSize", () => {
-  it.each(["16px", "1.5em", "100%", "0.8rem", "12pt", "2vh", "3vw", "1ch", "2ex"])(
-    "accepts valid value: %s",
-    (v) => expect(isValidFontSize(v)).toBe(true),
-  );
+  it.each([
+    "16px",
+    "1.5em",
+    "100%",
+    "0.8rem",
+    "12pt",
+    "2vh",
+    "3vw",
+    "1ch",
+    "2ex",
+  ])("accepts valid value: %s", (v) => expect(isValidFontSize(v)).toBe(true));
 
   it.each(["red", "bold", "16", "auto", "", "16 px", "px16"])(
     "rejects invalid value: %s",
@@ -120,7 +142,7 @@ describe("isValidFontSize", () => {
 
 describe("fontSizePlugin", () => {
   it("has the correct name", () => {
-    expect(fontSizePlugin.name).toBe("lexra/font-size");
+    expect(fontSizePlugin.name).toBe("lexify/font-size");
   });
 
   it("registers handlers for both commands", () => {
@@ -128,8 +150,8 @@ describe("fontSizePlugin", () => {
     const spy = vi.spyOn(editor, "registerCommandHandler");
     fontSizePlugin.register(editor);
     const types = spy.mock.calls.map((c) => c[0].type);
-    expect(types).toContain("lexra:style:font-size");
-    expect(types).toContain("lexra:style:font-size:remove");
+    expect(types).toContain("lexify:style:font-size");
+    expect(types).toContain("lexify:style:font-size:remove");
   });
 
   it("calls update for SET_FONT_SIZE_COMMAND with valid value", () => {

@@ -1,8 +1,8 @@
-# Lexra
+# Lexify
 
 **Headless, plugin-driven Rich Text Editor** built on top of [Lexical](https://lexical.dev) by Meta.
 
-Lexra wraps Lexical with a clean, opinionated abstraction layer:
+Lexify wraps Lexical with a clean, opinionated abstraction layer:
 no Lexical types leak into your application code, every feature is a plugin,
 and the command system is fully typed and testable.
 
@@ -10,24 +10,24 @@ and the command system is fully typed and testable.
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| [`@lexra/core`](packages/core) | Editor engine: `createEditor`, command bus, plugin registry |
-| [`@lexra/react`](packages/react) | React bindings: `LexraComposer`, `useLexraEditor`, `LexraContext` |
-| [`@lexra/ui`](packages/ui) | Unstyled toolbar components: `Toolbar`, `BoldButton`, `HeadingSelect`, … |
-| [`@lexra/themes`](packages/themes) | Theme system: `baseTheme`, `darkTheme`, `css/base.css` |
-| [`@lexra/plugin-utils`](packages/plugins/utils) | Shared CSS style utilities used by style plugins |
-| [`@lexra/plugin-bold`](packages/plugins/bold) | Bold text format |
-| [`@lexra/plugin-italic`](packages/plugins/italic) | Italic text format |
-| [`@lexra/plugin-underline`](packages/plugins/underline) | Underline text format |
-| [`@lexra/plugin-strikethrough`](packages/plugins/strikethrough) | Strikethrough text format |
-| [`@lexra/plugin-code`](packages/plugins/code) | Inline code text format |
-| [`@lexra/plugin-link`](packages/plugins/link) | Insert/update/remove links |
-| [`@lexra/plugin-font-size`](packages/plugins/font-size) | Inline font-size via CSS style |
-| [`@lexra/plugin-font-color`](packages/plugins/font-color) | Inline font color via CSS style |
-| [`@lexra/plugin-text-align`](packages/plugins/text-align) | Block-level text alignment |
-| [`@lexra/plugin-heading`](packages/plugins/heading) | Heading blocks (h1–h6) |
-| [`@lexra/plugin-list`](packages/plugins/list) | Bullet and numbered lists |
+| Package                                                          | Description                                                              |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`@lexify/core`](packages/core)                                  | Editor engine: `createEditor`, command bus, plugin registry              |
+| [`@lexify/react`](packages/react)                                | React bindings: `LexifyComposer`, `useLexifyEditor`, `LexifyContext`     |
+| [`@lexify/ui`](packages/ui)                                      | Unstyled toolbar components: `Toolbar`, `BoldButton`, `HeadingSelect`, … |
+| [`@lexify/themes`](packages/themes)                              | Theme system: `baseTheme`, `darkTheme`, `css/base.css`                   |
+| [`@lexify/plugin-utils`](packages/plugins/utils)                 | Shared CSS style utilities used by style plugins                         |
+| [`@lexify/plugin-bold`](packages/plugins/bold)                   | Bold text format                                                         |
+| [`@lexify/plugin-italic`](packages/plugins/italic)               | Italic text format                                                       |
+| [`@lexify/plugin-underline`](packages/plugins/underline)         | Underline text format                                                    |
+| [`@lexify/plugin-strikethrough`](packages/plugins/strikethrough) | Strikethrough text format                                                |
+| [`@lexify/plugin-code`](packages/plugins/code)                   | Inline code text format                                                  |
+| [`@lexify/plugin-link`](packages/plugins/link)                   | Insert/update/remove links                                               |
+| [`@lexify/plugin-font-size`](packages/plugins/font-size)         | Inline font-size via CSS style                                           |
+| [`@lexify/plugin-font-color`](packages/plugins/font-color)       | Inline font color via CSS style                                          |
+| [`@lexify/plugin-text-align`](packages/plugins/text-align)       | Block-level text alignment                                               |
+| [`@lexify/plugin-heading`](packages/plugins/heading)             | Heading blocks (h1–h6)                                                   |
+| [`@lexify/plugin-list`](packages/plugins/list)                   | Bullet and numbered lists                                                |
 
 ---
 
@@ -36,25 +36,25 @@ and the command system is fully typed and testable.
 ### Install
 
 ```bash
-pnpm add @lexra/core @lexra/react lexical @lexical/react
+pnpm add @lexify/core @lexify/react lexical @lexical/react
 ```
 
 ### Minimal editor
 
 ```tsx
-import { LexraComposer } from "@lexra/react";
-import { boldPlugin } from "@lexra/plugin-bold";
-import { italicPlugin } from "@lexra/plugin-italic";
+import { LexifyComposer } from "@lexify/react";
+import { boldPlugin } from "@lexify/plugin-bold";
+import { italicPlugin } from "@lexify/plugin-italic";
 
 export function MyEditor() {
   return (
-    <LexraComposer
+    <LexifyComposer
       namespace="my-editor"
       plugins={[boldPlugin, italicPlugin]}
       className="my-editor-content"
     >
       {/* optional toolbar or plugins as children */}
-    </LexraComposer>
+    </LexifyComposer>
   );
 }
 ```
@@ -62,24 +62,26 @@ export function MyEditor() {
 ### With theme
 
 ```tsx
-import { baseTheme } from "@lexra/themes";
-import "@lexra/themes/css/base.css";
+import { baseTheme } from "@lexify/themes";
+import "@lexify/themes/css/base.css";
 
-<LexraComposer namespace="my-editor" plugins={[...]} theme={baseTheme}>
+<LexifyComposer namespace="my-editor" plugins={[...]} theme={baseTheme}>
   ...
-</LexraComposer>
+</LexifyComposer>
 ```
 
 ### Dispatch commands from a toolbar
 
 ```tsx
-import { useLexraEditor } from "@lexra/react";
-import { FORMAT_BOLD_COMMAND } from "@lexra/plugin-bold";
+import { useLexifyEditor } from "@lexify/react";
+import { FORMAT_BOLD_COMMAND } from "@lexify/plugin-bold";
 
 function BoldButton() {
-  const editor = useLexraEditor();
+  const editor = useLexifyEditor();
   return (
-    <button onClick={() => editor.dispatchCommand(FORMAT_BOLD_COMMAND, undefined)}>
+    <button
+      onClick={() => editor.dispatchCommand(FORMAT_BOLD_COMMAND, undefined)}
+    >
       B
     </button>
   );
@@ -89,7 +91,13 @@ function BoldButton() {
 ### Use the pre-built toolbar
 
 ```tsx
-import { Toolbar, ToolbarGroup, BoldButton, ItalicButton, HeadingSelect } from "@lexra/ui";
+import {
+  Toolbar,
+  ToolbarGroup,
+  BoldButton,
+  ItalicButton,
+  HeadingSelect,
+} from "@lexify/ui";
 
 function MyToolbar() {
   return (
@@ -121,15 +129,15 @@ pnpm clean            # remove all dist/ folders
 ### Single-package commands
 
 ```bash
-pnpm --filter @lexra/core build
-pnpm --filter @lexra/plugin-bold test
-pnpm --filter @lexra/ui test:watch
+pnpm --filter @lexify/core build
+pnpm --filter @lexify/plugin-bold test
+pnpm --filter @lexify/ui test:watch
 ```
 
 ### Run the demo
 
 ```bash
-pnpm --filter @lexra/demo dev
+pnpm --filter @lexify/demo dev
 ```
 
 ---

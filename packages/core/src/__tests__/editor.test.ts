@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { createEditor, createCommand } from "../index.js";
-import type { LexraPlugin } from "../index.js";
+import type { LexifyPlugin } from "../index.js";
 
 // ─── createEditor ─────────────────────────────────────────────────────────────
 
@@ -22,7 +22,7 @@ describe("createEditor", () => {
 describe("registerPlugin", () => {
   it("calls register on the plugin", () => {
     const cleanup = vi.fn();
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "test-plugin",
       register: vi.fn(() => cleanup),
     };
@@ -32,7 +32,7 @@ describe("registerPlugin", () => {
   });
 
   it("is idempotent — registering twice only calls register once", () => {
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "test-plugin",
       register: vi.fn(() => vi.fn()),
     };
@@ -43,7 +43,7 @@ describe("registerPlugin", () => {
   });
 
   it("registers plugins provided in config", () => {
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "config-plugin",
       register: vi.fn(() => vi.fn()),
     };
@@ -53,7 +53,7 @@ describe("registerPlugin", () => {
 
   it("calls plugin cleanup on destroy", () => {
     const cleanup = vi.fn();
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "test-plugin",
       register: vi.fn(() => cleanup),
     };

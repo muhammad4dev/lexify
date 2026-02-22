@@ -1,4 +1,4 @@
-// @lexra/ui — toolbar and editor UI components
+// @lexify/ui — toolbar and editor UI components
 
 // Primitives
 export * from "./primitives/index.js";

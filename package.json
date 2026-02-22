@@ -1,5 +1,5 @@
 {
-  "name": "lexra",
+  "name": "lexify",
   "private": true,
   "version": "0.0.1",
   "description": "Headless, plugin-driven Rich Text Editor built on Lexical",
@@ -17,5 +17,5 @@
     "node": ">=20",
     "pnpm": ">=9"
   },
-  "packageManager": "pnpm@10.28.2"
+  "packageManager": "pnpm@10.0.0"
 }

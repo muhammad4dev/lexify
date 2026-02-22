@@ -1,3 +1,3 @@
-export { LexraComposer } from "./LexraComposer.js";
-export { useLexraEditor, LexraContext } from "./context.js";
-export type { LexraComposerProps } from "./types.js";
+export { LexifyComposer } from "./LexifyComposer.js";
+export { useLexifyEditor, LexifyContext } from "./context.js";
+export type { LexifyComposerProps } from "./types.js";

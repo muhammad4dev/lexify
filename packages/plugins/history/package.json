@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/plugin-history",
+  "name": "@lexify/plugin-history",
   "version": "0.0.1",
-  "description": "Undo/redo history plugin for Lexra",
+  "description": "Undo/redo history plugin for Lexify",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -23,7 +25,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lexra/core": "workspace:*",
+    "@lexify/core": "workspace:*",
     "@lexical/history": "^0.31.1",
     "lexical": "^0.31.1"
   },

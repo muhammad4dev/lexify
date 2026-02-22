@@ -1,26 +1,32 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { historyPlugin, UNDO_COMMAND, REDO_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
-import type { LexraEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
+import type { LexifyEditor } from "@lexify/core";
 
 // ─── Plugin contract ──────────────────────────────────────────────────────────
 
 describe("historyPlugin", () => {
-  let editor: LexraEditor;
+  let editor: LexifyEditor;
 
   beforeEach(() => {
     editor = createEditor({ namespace: "test" });
   });
 
   it("has the correct name", () => {
-    expect(historyPlugin.name).toBe("lexra/history");
+    expect(historyPlugin.name).toBe("lexify/history");
   });
 
   it("registers handlers for UNDO_COMMAND and REDO_COMMAND on mount", () => {
     const registerSpy = vi.spyOn(editor, "registerCommandHandler");
     historyPlugin.register(editor);
-    expect(registerSpy).toHaveBeenCalledWith(UNDO_COMMAND, expect.any(Function));
-    expect(registerSpy).toHaveBeenCalledWith(REDO_COMMAND, expect.any(Function));
+    expect(registerSpy).toHaveBeenCalledWith(
+      UNDO_COMMAND,
+      expect.any(Function),
+    );
+    expect(registerSpy).toHaveBeenCalledWith(
+      REDO_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function from register", () => {
@@ -55,7 +61,7 @@ describe("historyPlugin", () => {
 
 describe("UNDO_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(UNDO_COMMAND.type).toBe("lexra:history:undo");
+    expect(UNDO_COMMAND.type).toBe("lexify:history:undo");
   });
 
   it("does not expose any Lexical types on its shape", () => {
@@ -65,7 +71,7 @@ describe("UNDO_COMMAND", () => {
 
 describe("REDO_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(REDO_COMMAND.type).toBe("lexra:history:redo");
+    expect(REDO_COMMAND.type).toBe("lexify:history:redo");
   });
 
   it("does not expose any Lexical types on its shape", () => {

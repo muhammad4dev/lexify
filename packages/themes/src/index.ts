@@ -1,111 +1,111 @@
-import type { LexraTheme } from "@lexra/core";
+import type { LexifyTheme } from "@lexify/core";
 
-export type { LexraTheme, LexraTextTheme } from "@lexra/core";
+export type { LexifyTheme, LexifyTextTheme } from "@lexify/core";
 
 // ─── Base theme ───────────────────────────────────────────────────────────────
 
-/** Class-name-based theme for use with LexraComposer `theme` prop. */
-export const baseTheme: LexraTheme = {
-  root: "lexra-root",
-  paragraph: "lexra-paragraph",
-  quote: "lexra-quote",
+/** Class-name-based theme for use with LexifyComposer `theme` prop. */
+export const baseTheme: LexifyTheme = {
+  root: "lexify-root",
+  paragraph: "lexify-paragraph",
+  quote: "lexify-quote",
 
   heading: {
-    h1: "lexra-h1",
-    h2: "lexra-h2",
-    h3: "lexra-h3",
-    h4: "lexra-h4",
-    h5: "lexra-h5",
-    h6: "lexra-h6",
+    h1: "lexify-h1",
+    h2: "lexify-h2",
+    h3: "lexify-h3",
+    h4: "lexify-h4",
+    h5: "lexify-h5",
+    h6: "lexify-h6",
   },
 
   list: {
-    ul: "lexra-ul",
-    ol: "lexra-ol",
-    listitem: "lexra-listitem",
-    listitemChecked: "lexra-listitem-checked",
-    listitemUnchecked: "lexra-listitem-unchecked",
-    checklist: "lexra-checklist",
+    ul: "lexify-ul",
+    ol: "lexify-ol",
+    listitem: "lexify-listitem",
+    listitemChecked: "lexify-listitem-checked",
+    listitemUnchecked: "lexify-listitem-unchecked",
+    checklist: "lexify-checklist",
     nested: {
-      list: "lexra-nested-list",
-      listitem: "lexra-nested-listitem",
+      list: "lexify-nested-list",
+      listitem: "lexify-nested-listitem",
     },
     ulDepth: [
-      "lexra-ul-depth-1",
-      "lexra-ul-depth-2",
-      "lexra-ul-depth-3",
-      "lexra-ul-depth-4",
+      "lexify-ul-depth-1",
+      "lexify-ul-depth-2",
+      "lexify-ul-depth-3",
+      "lexify-ul-depth-4",
     ],
     olDepth: [
-      "lexra-ol-depth-1",
-      "lexra-ol-depth-2",
-      "lexra-ol-depth-3",
-      "lexra-ol-depth-4",
+      "lexify-ol-depth-1",
+      "lexify-ol-depth-2",
+      "lexify-ol-depth-3",
+      "lexify-ol-depth-4",
     ],
   },
 
-  link: "lexra-link",
+  link: "lexify-link",
 
-  code: "lexra-code-block",
+  code: "lexify-code-block",
   codeHighlight: {
-    atrule: "lexra-code-atrule",
-    attr: "lexra-code-attr",
-    boolean: "lexra-code-boolean",
-    builtin: "lexra-code-builtin",
-    cdata: "lexra-code-cdata",
-    class: "lexra-code-class",
-    "class-name": "lexra-code-class-name",
-    comment: "lexra-code-comment",
-    constant: "lexra-code-constant",
-    deleted: "lexra-code-deleted",
-    doctype: "lexra-code-doctype",
-    entity: "lexra-code-entity",
-    function: "lexra-code-function",
-    important: "lexra-code-important",
-    inserted: "lexra-code-inserted",
-    keyword: "lexra-code-keyword",
-    namespace: "lexra-code-namespace",
-    number: "lexra-code-number",
-    operator: "lexra-code-operator",
-    prolog: "lexra-code-prolog",
-    property: "lexra-code-property",
-    punctuation: "lexra-code-punctuation",
-    regex: "lexra-code-regex",
-    selector: "lexra-code-selector",
-    string: "lexra-code-string",
-    symbol: "lexra-code-symbol",
-    tag: "lexra-code-tag",
-    url: "lexra-code-url",
-    variable: "lexra-code-variable",
+    atrule: "lexify-code-atrule",
+    attr: "lexify-code-attr",
+    boolean: "lexify-code-boolean",
+    builtin: "lexify-code-builtin",
+    cdata: "lexify-code-cdata",
+    class: "lexify-code-class",
+    "class-name": "lexify-code-class-name",
+    comment: "lexify-code-comment",
+    constant: "lexify-code-constant",
+    deleted: "lexify-code-deleted",
+    doctype: "lexify-code-doctype",
+    entity: "lexify-code-entity",
+    function: "lexify-code-function",
+    important: "lexify-code-important",
+    inserted: "lexify-code-inserted",
+    keyword: "lexify-code-keyword",
+    namespace: "lexify-code-namespace",
+    number: "lexify-code-number",
+    operator: "lexify-code-operator",
+    prolog: "lexify-code-prolog",
+    property: "lexify-code-property",
+    punctuation: "lexify-code-punctuation",
+    regex: "lexify-code-regex",
+    selector: "lexify-code-selector",
+    string: "lexify-code-string",
+    symbol: "lexify-code-symbol",
+    tag: "lexify-code-tag",
+    url: "lexify-code-url",
+    variable: "lexify-code-variable",
   },
 
   text: {
-    bold: "lexra-text-bold",
-    italic: "lexra-text-italic",
-    underline: "lexra-text-underline",
-    strikethrough: "lexra-text-strikethrough",
-    underlineStrikethrough: "lexra-text-underline-strikethrough",
-    code: "lexra-text-code",
-    subscript: "lexra-text-subscript",
-    superscript: "lexra-text-superscript",
-    highlight: "lexra-text-highlight",
+    bold: "lexify-text-bold",
+    italic: "lexify-text-italic",
+    underline: "lexify-text-underline",
+    strikethrough: "lexify-text-strikethrough",
+    underlineStrikethrough: "lexify-text-underline-strikethrough",
+    code: "lexify-text-code",
+    subscript: "lexify-text-subscript",
+    superscript: "lexify-text-superscript",
+    highlight: "lexify-text-highlight",
   },
 
-  mark: "lexra-mark",
-  markOverlap: "lexra-mark-overlap",
-  blockCursor: "lexra-block-cursor",
-  hr: "lexra-hr",
-  image: "lexra-image",
-  indent: "lexra-indent",
-  ltr: "lexra-ltr",
-  rtl: "lexra-rtl",
+  mark: "lexify-mark",
+  markOverlap: "lexify-mark-overlap",
+  blockCursor: "lexify-block-cursor",
+  hr: "lexify-hr",
+  image: "lexify-image",
+  indent: "lexify-indent",
+  ltr: "lexify-ltr",
+  rtl: "lexify-rtl",
 
-  table: "lexra-table",
-  tableCell: "lexra-table-cell",
-  tableCellHeader: "lexra-table-cell-header",
-  tableRow: "lexra-table-row",
-  tableSelected: "lexra-table-selected",
-  tableSelection: "lexra-table-selection",
+  table: "lexify-table",
+  tableCell: "lexify-table-cell",
+  tableCellHeader: "lexify-table-cell-header",
+  tableRow: "lexify-table-row",
+  tableSelected: "lexify-table-selected",
+  tableSelection: "lexify-table-selection",
 };
 
 // ─── Dark theme ───────────────────────────────────────────────────────────────
@@ -114,18 +114,18 @@ export const baseTheme: LexraTheme = {
  * Dark variant of baseTheme — applies an extra `-dark` suffix to all root-level
  * class names and can be swapped in at runtime.
  */
-function darkify(theme: LexraTheme): LexraTheme {
-  const result: LexraTheme = {};
+function darkify(theme: LexifyTheme): LexifyTheme {
+  const result: LexifyTheme = {};
   for (const [key, value] of Object.entries(theme)) {
     if (typeof value === "string") {
       result[key] = `${value}-dark`;
     } else if (Array.isArray(value)) {
       result[key] = (value as string[]).map((v) => `${v}-dark`);
     } else if (value !== null && typeof value === "object") {
-      result[key] = darkify(value as LexraTheme);
+      result[key] = darkify(value as LexifyTheme);
     }
   }
   return result;
 }
 
-export const darkTheme: LexraTheme = darkify(baseTheme);
+export const darkTheme: LexifyTheme = darkify(baseTheme);

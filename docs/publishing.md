@@ -1,17 +1,17 @@
 # Publishing to npm
 
-Lexra is a pnpm monorepo. All publishable packages live under `packages/` and
-share the `@lexra` npm scope.
+Lexify is a pnpm monorepo. All publishable packages live under `packages/` and
+share the `@lexify` npm scope.
 
 ---
 
 ## Prerequisites
 
 1. **npm account** — create one at [npmjs.com](https://www.npmjs.com)
-2. **`@lexra` org** — create the organization at npmjs.com so scoped packages can
+2. **`@lexify` org** — create the organization at npmjs.com so scoped packages can
    be published publicly
 3. **npm access token** — generate at npmjs.com → Account → Access Tokens →
-   *Automation* type (for CI) or *Publish* type (for local)
+   _Automation_ type (for CI) or _Publish_ type (for local)
 
 ---
 
@@ -52,6 +52,7 @@ git push && git push --tags
 ```
 
 GitHub Actions will then:
+
 - Install dependencies
 - Build all publishable packages
 - Run tests
@@ -62,30 +63,31 @@ GitHub Actions will then:
 
 ## Publishable packages
 
-| Package | Description |
-|---|---|
-| `@lexra/core` | Core engine |
-| `@lexra/react` | React bindings |
-| `@lexra/themes` | Theme objects + CSS |
-| `@lexra/ui` | Toolbar components |
-| `@lexra/plugin-bold` | Bold plugin |
-| `@lexra/plugin-italic` | Italic plugin |
-| `@lexra/plugin-underline` | Underline plugin |
-| `@lexra/plugin-strikethrough` | Strikethrough plugin |
-| `@lexra/plugin-code` | Inline code plugin |
-| `@lexra/plugin-heading` | Heading plugin |
-| `@lexra/plugin-text-align` | Text align plugin |
-| `@lexra/plugin-font-size` | Font size plugin |
-| `@lexra/plugin-font-color` | Font color plugin |
-| `@lexra/plugin-link` | Link plugin |
-| `@lexra/plugin-list` | List plugin |
-| `@lexra/plugin-history` | Undo/redo plugin |
-| `@lexra/plugin-utils` | Shared style utilities |
+| Package                        | Description            |
+| ------------------------------ | ---------------------- |
+| `@lexify/core`                 | Core engine            |
+| `@lexify/react`                | React bindings         |
+| `@lexify/themes`               | Theme objects + CSS    |
+| `@lexify/ui`                   | Toolbar components     |
+| `@lexify/plugin-bold`          | Bold plugin            |
+| `@lexify/plugin-italic`        | Italic plugin          |
+| `@lexify/plugin-underline`     | Underline plugin       |
+| `@lexify/plugin-strikethrough` | Strikethrough plugin   |
+| `@lexify/plugin-code`          | Inline code plugin     |
+| `@lexify/plugin-heading`       | Heading plugin         |
+| `@lexify/plugin-text-align`    | Text align plugin      |
+| `@lexify/plugin-font-size`     | Font size plugin       |
+| `@lexify/plugin-font-color`    | Font color plugin      |
+| `@lexify/plugin-link`          | Link plugin            |
+| `@lexify/plugin-list`          | List plugin            |
+| `@lexify/plugin-history`       | Undo/redo plugin       |
+| `@lexify/plugin-utils`         | Shared style utilities |
 
 **Not published** (mark `"private": true` in their `package.json`):
-- `@lexra/demo` — already private
-- `@lexra/e2e` — dev tooling only
-- `@lexra/test-utils` — excluded from publish scripts (can be published if desired)
+
+- `@lexify/demo` — already private
+- `@lexify/e2e` — dev tooling only
+- `@lexify/test-utils` — excluded from publish scripts (can be published if desired)
 
 ---
 
@@ -93,14 +95,14 @@ GitHub Actions will then:
 
 ```bash
 # Build everything
-pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' --filter='!@lexra/test-utils' build
+pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' build
 
 # Dry run — see what would be published
-pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' --filter='!@lexra/test-utils' \
+pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' \
   publish --access public --no-git-checks --dry-run
 
 # Publish for real
-pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' --filter='!@lexra/test-utils' \
+pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' \
   publish --access public --no-git-checks
 ```
 

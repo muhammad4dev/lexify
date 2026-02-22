@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useLexraEditor } from "@lexra/react";
+import { useLexifyEditor } from "@lexify/react";
 import {
   INSERT_UNORDERED_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
   REMOVE_LIST_COMMAND,
-} from "@lexra/plugin-list";
+} from "@lexify/plugin-list";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 
@@ -20,7 +20,7 @@ export const BulletListButton = React.forwardRef<
     { children = "• List", "aria-label": ariaLabel = "Bullet list", ...rest },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     return (
       <ToolbarButton
         ref={ref}
@@ -50,7 +50,7 @@ export const NumberedListButton = React.forwardRef<
     },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     return (
       <ToolbarButton
         ref={ref}
@@ -80,7 +80,7 @@ export const RemoveListButton = React.forwardRef<
     },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
     return (
       <ToolbarButton
         ref={ref}

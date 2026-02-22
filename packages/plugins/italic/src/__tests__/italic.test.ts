@@ -1,17 +1,20 @@
 import { describe, it, expect, vi } from "vitest";
 import { italicPlugin, FORMAT_ITALIC_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("italicPlugin", () => {
   it("has the correct name", () => {
-    expect(italicPlugin.name).toBe("lexra/italic");
+    expect(italicPlugin.name).toBe("lexify/italic");
   });
 
   it("registers a handler for FORMAT_ITALIC_COMMAND on mount", () => {
     const editor = createEditor({ namespace: "test" });
     const spy = vi.spyOn(editor, "registerCommandHandler");
     italicPlugin.register(editor);
-    expect(spy).toHaveBeenCalledWith(FORMAT_ITALIC_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      FORMAT_ITALIC_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -48,7 +51,7 @@ describe("italicPlugin", () => {
 
 describe("FORMAT_ITALIC_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(FORMAT_ITALIC_COMMAND.type).toBe("lexra:format:italic");
+    expect(FORMAT_ITALIC_COMMAND.type).toBe("lexify:format:italic");
   });
 
   it("does not expose Lexical types", () => {

@@ -10,8 +10,8 @@ jobs:
     name: Publish to npm
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # needed to create GitHub release
-      id-token: write  # needed for npm provenance
+      contents: write # needed to create GitHub release
+      id-token: write # needed for npm provenance
 
     steps:
       - name: Checkout
@@ -33,13 +33,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build all packages
-        run: pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' --filter='!@lexra/test-utils' build
+        run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' build
 
       - name: Run tests
-        run: pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' test
+        run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' test
 
       - name: Publish to npm
-        run: pnpm -r --filter='!@lexra/demo' --filter='!@lexra/e2e' --filter='!@lexra/test-utils' publish --access public --no-git-checks
+        run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

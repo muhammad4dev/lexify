@@ -1,13 +1,14 @@
 import { $getSelection, $isRangeSelection } from "lexical";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
-export const FORMAT_ITALIC_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:format:italic");
+export const FORMAT_ITALIC_COMMAND: LexifyCommand<void> = createCommand<void>(
+  "lexify:format:italic",
+);
 
-export const italicPlugin: LexraPlugin = {
-  name: "lexra/italic",
-  register(editor: LexraEditor): () => void {
+export const italicPlugin: LexifyPlugin = {
+  name: "lexify/italic",
+  register(editor: LexifyEditor): () => void {
     return editor.registerCommandHandler(FORMAT_ITALIC_COMMAND, () => {
       editor.update(() => {
         const selection = $getSelection();

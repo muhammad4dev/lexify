@@ -1,10 +1,14 @@
 import { describe, it, expect, vi } from "vitest";
-import { fontColorPlugin, SET_FONT_COLOR_COMMAND, REMOVE_FONT_COLOR_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import {
+  fontColorPlugin,
+  SET_FONT_COLOR_COMMAND,
+  REMOVE_FONT_COLOR_COMMAND,
+} from "../index.js";
+import { createEditor } from "@lexify/core";
 
 describe("fontColorPlugin", () => {
   it("has the correct name", () => {
-    expect(fontColorPlugin.name).toBe("lexra/font-color");
+    expect(fontColorPlugin.name).toBe("lexify/font-color");
   });
 
   it("has no nodes (no custom node registration needed)", () => {
@@ -15,8 +19,14 @@ describe("fontColorPlugin", () => {
     const editor = createEditor({ namespace: "test" });
     const spy = vi.spyOn(editor, "registerCommandHandler");
     fontColorPlugin.register(editor);
-    expect(spy).toHaveBeenCalledWith(SET_FONT_COLOR_COMMAND, expect.any(Function));
-    expect(spy).toHaveBeenCalledWith(REMOVE_FONT_COLOR_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      SET_FONT_COLOR_COMMAND,
+      expect.any(Function),
+    );
+    expect(spy).toHaveBeenCalledWith(
+      REMOVE_FONT_COLOR_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -47,7 +57,9 @@ describe("fontColorPlugin", () => {
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     fontColorPlugin.register(editor);
     editor.dispatchCommand(SET_FONT_COLOR_COMMAND, "16px");
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("Invalid color value"));
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Invalid color value"),
+    );
     warnSpy.mockRestore();
   });
 
@@ -65,7 +77,11 @@ describe("fontColorPlugin", () => {
     const editor = createEditor({ namespace: "test" });
     const updateSpy = vi.spyOn(editor, "update");
     fontColorPlugin.register(editor);
-    for (const color of ["rgb(255,0,0)", "rgba(0,0,0,0.5)", "hsl(120,100%,50%)"]) {
+    for (const color of [
+      "rgb(255,0,0)",
+      "rgba(0,0,0,0.5)",
+      "hsl(120,100%,50%)",
+    ]) {
       editor.dispatchCommand(SET_FONT_COLOR_COMMAND, color);
     }
     expect(updateSpy).toHaveBeenCalledTimes(3);
@@ -101,7 +117,7 @@ describe("fontColorPlugin", () => {
 
 describe("SET_FONT_COLOR_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(SET_FONT_COLOR_COMMAND.type).toBe("lexra:style:font-color");
+    expect(SET_FONT_COLOR_COMMAND.type).toBe("lexify:style:font-color");
   });
 
   it("does not expose Lexical types", () => {

@@ -1,28 +1,30 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import React from "react";
-import { LexraComposer } from "../LexraComposer.js";
-import { useLexraEditor } from "../context.js";
-import type { LexraPlugin } from "@lexra/core";
+import { LexifyComposer } from "../LexifyComposer.js";
+import { useLexifyEditor } from "../context.js";
+import type { LexifyPlugin } from "@lexify/core";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function TestConsumer(): React.ReactElement {
-  const editor = useLexraEditor();
+  const editor = useLexifyEditor();
   return <div data-testid="ns">{editor.namespace}</div>;
 }
 
-function renderComposer(props: Partial<React.ComponentProps<typeof LexraComposer>> = {}) {
+function renderComposer(
+  props: Partial<React.ComponentProps<typeof LexifyComposer>> = {},
+) {
   return render(
-    <LexraComposer namespace="test" {...props}>
+    <LexifyComposer namespace="test" {...props}>
       <TestConsumer />
-    </LexraComposer>,
+    </LexifyComposer>,
   );
 }
 
-// ─── LexraComposer ────────────────────────────────────────────────────────────
+// ─── LexifyComposer ────────────────────────────────────────────────────────────
 
-describe("LexraComposer", () => {
+describe("LexifyComposer", () => {
   it("renders without crashing", () => {
     expect(() => renderComposer()).not.toThrow();
   });
@@ -34,7 +36,7 @@ describe("LexraComposer", () => {
 
   it("registers plugins on mount", () => {
     const cleanup = vi.fn();
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "test-plugin",
       register: vi.fn(() => cleanup),
     };
@@ -70,7 +72,7 @@ describe("LexraComposer", () => {
 
   it("calls plugin cleanup on unmount", () => {
     const cleanup = vi.fn();
-    const plugin: LexraPlugin = {
+    const plugin: LexifyPlugin = {
       name: "cleanup-plugin",
       register: vi.fn(() => cleanup),
     };
@@ -80,13 +82,13 @@ describe("LexraComposer", () => {
   });
 });
 
-// ─── useLexraEditor ───────────────────────────────────────────────────────────
+// ─── useLexifyEditor ───────────────────────────────────────────────────────────
 
-describe("useLexraEditor", () => {
-  it("throws when used outside LexraComposer", () => {
+describe("useLexifyEditor", () => {
+  it("throws when used outside LexifyComposer", () => {
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => render(<TestConsumer />)).toThrow(
-      "useLexraEditor must be called inside a <LexraComposer> tree.",
+      "useLexifyEditor must be called inside a <LexifyComposer> tree.",
     );
     consoleSpy.mockRestore();
   });
@@ -95,20 +97,20 @@ describe("useLexraEditor", () => {
     const editorRefs: unknown[] = [];
 
     function Capture(): React.ReactElement {
-      const editor = useLexraEditor();
+      const editor = useLexifyEditor();
       editorRefs.push(editor);
       return <></>;
     }
 
     const { rerender } = render(
-      <LexraComposer namespace="stable">
+      <LexifyComposer namespace="stable">
         <Capture />
-      </LexraComposer>,
+      </LexifyComposer>,
     );
     rerender(
-      <LexraComposer namespace="stable">
+      <LexifyComposer namespace="stable">
         <Capture />
-      </LexraComposer>,
+      </LexifyComposer>,
     );
 
     expect(editorRefs[0]).toBe(editorRefs[1]);

@@ -5,23 +5,25 @@ import {
   type SerializedEditorState,
 } from "lexical";
 import type {
-  LexraEditor,
-  LexraEditorConfig,
-  LexraCommand,
-  LexraPlugin,
+  LexifyEditor,
+  LexifyEditorConfig,
+  LexifyCommand,
+  LexifyPlugin,
 } from "./types.js";
 
 type CommandHandler<TPayload> = (payload: TPayload) => void;
 
-export function createEditor(config: LexraEditorConfig): LexraEditor {
-  // If an external Lexical editor is injected (by @lexra/react), use it directly.
+export function createEditor(config: LexifyEditorConfig): LexifyEditor {
+  // If an external Lexical editor is injected (by @lexify/react), use it directly.
   // Otherwise create one — this path is used in tests and standalone usage.
   let lexical: LexicalEditor;
   if (config._lexicalEditor) {
     lexical = config._lexicalEditor as LexicalEditor;
   } else {
     const pluginNodes = (config.plugins ?? []).flatMap((p) => p.nodes ?? []);
-    type LexicalCreateArgs = NonNullable<Parameters<typeof createLexicalEditor>[0]>;
+    type LexicalCreateArgs = NonNullable<
+      Parameters<typeof createLexicalEditor>[0]
+    >;
     type LexicalNodes = NonNullable<LexicalCreateArgs["nodes"]>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const theme = (config.theme ?? {}) as any;
@@ -37,19 +39,19 @@ export function createEditor(config: LexraEditorConfig): LexraEditor {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const commandHandlers = new Map<string, Set<CommandHandler<any>>>();
 
-  const editor: LexraEditor = {
+  const editor: LexifyEditor = {
     get namespace() {
       return config.namespace;
     },
 
-    registerPlugin(plugin: LexraPlugin): void {
+    registerPlugin(plugin: LexifyPlugin): void {
       if (registeredPlugins.has(plugin.name)) return;
       const cleanup = plugin.register(editor);
       registeredPlugins.set(plugin.name, cleanup);
     },
 
     registerCommandHandler<TPayload>(
-      command: LexraCommand<TPayload>,
+      command: LexifyCommand<TPayload>,
       handler: CommandHandler<TPayload>,
     ): () => void {
       let handlers = commandHandlers.get(command.type);
@@ -62,7 +64,7 @@ export function createEditor(config: LexraEditorConfig): LexraEditor {
     },
 
     dispatchCommand<TPayload>(
-      command: LexraCommand<TPayload>,
+      command: LexifyCommand<TPayload>,
       payload: TPayload,
     ): void {
       const handlers = commandHandlers.get(command.type);

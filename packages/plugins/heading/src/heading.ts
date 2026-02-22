@@ -1,39 +1,50 @@
-import { $getSelection, $isRangeSelection, $createParagraphNode } from "lexical";
+import {
+  $getSelection,
+  $isRangeSelection,
+  $createParagraphNode,
+} from "lexical";
 import { $createHeadingNode, HeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
 export type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export const SET_HEADING_COMMAND: LexraCommand<HeadingTag> =
-  createCommand<HeadingTag>("lexra:block:heading");
+export const SET_HEADING_COMMAND: LexifyCommand<HeadingTag> =
+  createCommand<HeadingTag>("lexify:block:heading");
 
-export const REMOVE_HEADING_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:block:heading:remove");
+export const REMOVE_HEADING_COMMAND: LexifyCommand<void> = createCommand<void>(
+  "lexify:block:heading:remove",
+);
 
-export const headingPlugin: LexraPlugin = {
-  name: "lexra/heading",
+export const headingPlugin: LexifyPlugin = {
+  name: "lexify/heading",
   nodes: [HeadingNode],
 
-  register(editor: LexraEditor): () => void {
-    const unsubSet = editor.registerCommandHandler(SET_HEADING_COMMAND, (tag) => {
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => $createHeadingNode(tag));
-        }
-      });
-    });
+  register(editor: LexifyEditor): () => void {
+    const unsubSet = editor.registerCommandHandler(
+      SET_HEADING_COMMAND,
+      (tag) => {
+        editor.update(() => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            $setBlocksType(selection, () => $createHeadingNode(tag));
+          }
+        });
+      },
+    );
 
-    const unsubRemove = editor.registerCommandHandler(REMOVE_HEADING_COMMAND, () => {
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => $createParagraphNode());
-        }
-      });
-    });
+    const unsubRemove = editor.registerCommandHandler(
+      REMOVE_HEADING_COMMAND,
+      () => {
+        editor.update(() => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            $setBlocksType(selection, () => $createParagraphNode());
+          }
+        });
+      },
+    );
 
     return () => {
       unsubSet();

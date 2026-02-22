@@ -2,25 +2,25 @@ import type { EditorState, SerializedEditorState } from "lexical";
 
 // ─── Command ────────────────────────────────────────────────────────────────
 
-export interface LexraCommandPayloadMap {
+export interface LexifyCommandPayloadMap {
   [commandType: string]: unknown;
 }
 
-export interface LexraCommand<TPayload = void> {
+export interface LexifyCommand<TPayload = void> {
   readonly type: string;
   readonly _phantom?: TPayload; // phantom type — never used at runtime
 }
 
 export function createCommand<TPayload = void>(
   type: string,
-): LexraCommand<TPayload> {
+): LexifyCommand<TPayload> {
   return { type };
 }
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
 
 /** Text format class names (maps to Lexical's TextNodeThemeClasses). */
-export interface LexraTextTheme {
+export interface LexifyTextTheme {
   base?: string;
   bold?: string;
   italic?: string;
@@ -34,7 +34,7 @@ export interface LexraTextTheme {
 }
 
 /** Full theme shape passed to Lexical's EditorThemeClasses. No Lexical types exposed. */
-export interface LexraTheme {
+export interface LexifyTheme {
   root?: string;
   paragraph?: string;
   quote?: string;
@@ -63,7 +63,7 @@ export interface LexraTheme {
   link?: string;
   code?: string;
   codeHighlight?: Record<string, string>;
-  text?: LexraTextTheme;
+  text?: LexifyTextTheme;
   blockCursor?: string;
   hr?: string;
   image?: string;
@@ -83,7 +83,7 @@ export interface LexraTheme {
 
 // ─── Plugin ──────────────────────────────────────────────────────────────────
 
-export interface LexraPlugin {
+export interface LexifyPlugin {
   readonly name: string;
   /**
    * Lexical node classes required by this plugin.
@@ -92,35 +92,35 @@ export interface LexraPlugin {
    */
   readonly nodes?: unknown[];
   /** Called once when the plugin is registered with an editor instance. */
-  register(editor: LexraEditor): () => void; // returns cleanup fn
+  register(editor: LexifyEditor): () => void; // returns cleanup fn
 }
 
 // ─── Editor ──────────────────────────────────────────────────────────────────
 
-export interface LexraEditorConfig {
+export interface LexifyEditorConfig {
   namespace: string;
-  plugins?: LexraPlugin[];
+  plugins?: LexifyPlugin[];
   /** Theme class names to pass to the Lexical editor. */
-  theme?: LexraTheme;
+  theme?: LexifyTheme;
   /**
-   * @internal — used by @lexra/react to inject LexicalComposer's editor
+   * @internal — used by @lexify/react to inject LexicalComposer's editor
    * so plugin update() calls target the rendered editor, not a separate one.
    */
   _lexicalEditor?: unknown;
 }
 
-export interface LexraEditor {
+export interface LexifyEditor {
   readonly namespace: string;
   /** Register a plugin. Idempotent — registering the same plugin twice is a no-op. */
-  registerPlugin(plugin: LexraPlugin): void;
+  registerPlugin(plugin: LexifyPlugin): void;
   /** Register a handler for a command. Returns an unsubscribe function. */
   registerCommandHandler<TPayload>(
-    command: LexraCommand<TPayload>,
+    command: LexifyCommand<TPayload>,
     handler: (payload: TPayload) => void,
   ): () => void;
   /** Dispatch a command to all registered handlers. */
   dispatchCommand<TPayload>(
-    command: LexraCommand<TPayload>,
+    command: LexifyCommand<TPayload>,
     payload: TPayload,
   ): void;
   /** Read the current editor state as a serializable snapshot. */

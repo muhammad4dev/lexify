@@ -4,64 +4,64 @@ All packages live under `packages/` (or `apps/` for the demo).
 
 ---
 
-## `@lexra/core`
+## `@lexify/core`
 
 Core engine — no React, no UI.
 
 ```bash
-pnpm add @lexra/core
+pnpm add @lexify/core
 ```
 
 ### Exports
 
-| Export | Description |
-|---|---|
-| `createEditor(config)` | Factory — returns a `LexraEditor` instance |
-| `createCommand<T>(type)` | Create a typed command token |
-| `LexraEditor` | Editor interface (type) |
-| `LexraPlugin` | Plugin interface (type) |
-| `LexraCommand<T>` | Command token type |
-| `LexraEditorConfig` | Config type for `createEditor` |
-| `LexraTheme` | Theme shape type |
-| `LexraTextTheme` | Text sub-theme type |
+| Export                   | Description                                 |
+| ------------------------ | ------------------------------------------- |
+| `createEditor(config)`   | Factory — returns a `LexifyEditor` instance |
+| `createCommand<T>(type)` | Create a typed command token                |
+| `LexifyEditor`           | Editor interface (type)                     |
+| `LexifyPlugin`           | Plugin interface (type)                     |
+| `LexifyCommand<T>`       | Command token type                          |
+| `LexifyEditorConfig`     | Config type for `createEditor`              |
+| `LexifyTheme`            | Theme shape type                            |
+| `LexifyTextTheme`        | Text sub-theme type                         |
 
-### `LexraEditorConfig`
+### `LexifyEditorConfig`
 
 ```typescript
-interface LexraEditorConfig {
+interface LexifyEditorConfig {
   namespace: string;
-  plugins?: LexraPlugin[];
-  theme?: LexraTheme;
+  plugins?: LexifyPlugin[];
+  theme?: LexifyTheme;
 }
 ```
 
 ---
 
-## `@lexra/react`
+## `@lexify/react`
 
 React bindings.
 
 ```bash
-pnpm add @lexra/react
+pnpm add @lexify/react
 # peer deps: react, react-dom, lexical, @lexical/react
 ```
 
 ### Exports
 
-| Export | Description |
-|---|---|
-| `LexraComposer` | Root component — mounts the editor |
-| `useLexraEditor()` | Hook — returns the `LexraEditor` for the nearest composer |
-| `LexraContext` | React context object (for test wrappers) |
-| `LexraComposerProps` | Prop types for `LexraComposer` |
+| Export                | Description                                                |
+| --------------------- | ---------------------------------------------------------- |
+| `LexifyComposer`      | Root component — mounts the editor                         |
+| `useLexifyEditor()`   | Hook — returns the `LexifyEditor` for the nearest composer |
+| `LexifyContext`       | React context object (for test wrappers)                   |
+| `LexifyComposerProps` | Prop types for `LexifyComposer`                            |
 
-### `LexraComposerProps`
+### `LexifyComposerProps`
 
 ```typescript
-interface LexraComposerProps {
+interface LexifyComposerProps {
   namespace: string;
-  plugins?: LexraPlugin[];
-  theme?: LexraTheme;
+  plugins?: LexifyPlugin[];
+  theme?: LexifyTheme;
   className?: string;
   placeholder?: React.ReactNode;
   initialState?: SerializedEditorState;
@@ -73,231 +73,231 @@ interface LexraComposerProps {
 
 ---
 
-## `@lexra/themes`
+## `@lexify/themes`
 
 Theme objects and CSS.
 
 ```bash
-pnpm add @lexra/themes
+pnpm add @lexify/themes
 ```
 
 ### Exports
 
-| Export | Description |
-|---|---|
-| `baseTheme` | Complete theme with `lexra-*` class names |
-| `darkTheme` | Same as `baseTheme` but with `-dark` suffix |
-| `LexraTheme` | Re-exported from `@lexra/core` |
-| `css/base.css` | Default styles for all `lexra-*` classes |
+| Export         | Description                                 |
+| -------------- | ------------------------------------------- |
+| `baseTheme`    | Complete theme with `lexify-*` class names  |
+| `darkTheme`    | Same as `baseTheme` but with `-dark` suffix |
+| `LexifyTheme`  | Re-exported from `@lexify/core`             |
+| `css/base.css` | Default styles for all `lexify-*` classes   |
 
 ---
 
-## `@lexra/ui`
+## `@lexify/ui`
 
 Toolbar primitives and pre-wired components.
 
 ```bash
-pnpm add @lexra/ui
+pnpm add @lexify/ui
 # peer deps: react
 ```
 
 ### Primitives
 
-| Component | Props |
-|---|---|
-| `Toolbar` | `HTMLDivElement` attrs + `children` |
-| `ToolbarButton` | `HTMLButtonElement` attrs + `isActive?: boolean` |
-| `ToolbarGroup` | `HTMLDivElement` attrs + `children` |
-| `ToolbarSeparator` | `HTMLDivElement` attrs |
+| Component          | Props                                            |
+| ------------------ | ------------------------------------------------ |
+| `Toolbar`          | `HTMLDivElement` attrs + `children`              |
+| `ToolbarButton`    | `HTMLButtonElement` attrs + `isActive?: boolean` |
+| `ToolbarGroup`     | `HTMLDivElement` attrs + `children`              |
+| `ToolbarSeparator` | `HTMLDivElement` attrs                           |
 
 ### Pre-wired components
 
-| Component | Requires plugin | Notes |
-|---|---|---|
-| `BoldButton` | `plugin-bold` | `isActive` prop |
-| `ItalicButton` | `plugin-italic` | `isActive` prop |
-| `UnderlineButton` | `plugin-underline` | `isActive` prop |
-| `StrikethroughButton` | `plugin-strikethrough` | `isActive` prop |
-| `CodeButton` | `plugin-code` | `isActive` prop |
-| `HeadingSelect` | `plugin-heading` | `<select>` |
-| `TextAlignButton` | `plugin-text-align` | `align` required prop |
-| `BulletListButton` | `plugin-list` | — |
-| `NumberedListButton` | `plugin-list` | — |
-| `RemoveListButton` | `plugin-list` | — |
-| `FontSizeInput` | `plugin-font-size` | validates on blur/Enter |
-| `FontColorInput` | `plugin-font-color` | validates on blur/Enter |
+| Component             | Requires plugin        | Notes                   |
+| --------------------- | ---------------------- | ----------------------- |
+| `BoldButton`          | `plugin-bold`          | `isActive` prop         |
+| `ItalicButton`        | `plugin-italic`        | `isActive` prop         |
+| `UnderlineButton`     | `plugin-underline`     | `isActive` prop         |
+| `StrikethroughButton` | `plugin-strikethrough` | `isActive` prop         |
+| `CodeButton`          | `plugin-code`          | `isActive` prop         |
+| `HeadingSelect`       | `plugin-heading`       | `<select>`              |
+| `TextAlignButton`     | `plugin-text-align`    | `align` required prop   |
+| `BulletListButton`    | `plugin-list`          | —                       |
+| `NumberedListButton`  | `plugin-list`          | —                       |
+| `RemoveListButton`    | `plugin-list`          | —                       |
+| `FontSizeInput`       | `plugin-font-size`     | validates on blur/Enter |
+| `FontColorInput`      | `plugin-font-color`    | validates on blur/Enter |
 
 All components forward refs and accept all native HTML attributes.
 
 ---
 
-## `@lexra/plugin-bold`
+## `@lexify/plugin-bold`
 
 ```bash
-pnpm add @lexra/plugin-bold
+pnpm add @lexify/plugin-bold
 ```
 
-| Export | Type | Description |
-|---|---|---|
-| `boldPlugin` | `LexraPlugin` | Plugin object |
-| `FORMAT_BOLD_COMMAND` | `LexraCommand<void>` | Toggle bold on selection |
+| Export                | Type                  | Description              |
+| --------------------- | --------------------- | ------------------------ |
+| `boldPlugin`          | `LexifyPlugin`        | Plugin object            |
+| `FORMAT_BOLD_COMMAND` | `LexifyCommand<void>` | Toggle bold on selection |
 
 ---
 
-## `@lexra/plugin-italic`
+## `@lexify/plugin-italic`
 
-| Export | Type |
-|---|---|
-| `italicPlugin` | `LexraPlugin` |
-| `FORMAT_ITALIC_COMMAND` | `LexraCommand<void>` |
-
----
-
-## `@lexra/plugin-underline`
-
-| Export | Type |
-|---|---|
-| `underlinePlugin` | `LexraPlugin` |
-| `FORMAT_UNDERLINE_COMMAND` | `LexraCommand<void>` |
+| Export                  | Type                  |
+| ----------------------- | --------------------- |
+| `italicPlugin`          | `LexifyPlugin`        |
+| `FORMAT_ITALIC_COMMAND` | `LexifyCommand<void>` |
 
 ---
 
-## `@lexra/plugin-strikethrough`
+## `@lexify/plugin-underline`
 
-| Export | Type |
-|---|---|
-| `strikethroughPlugin` | `LexraPlugin` |
-| `FORMAT_STRIKETHROUGH_COMMAND` | `LexraCommand<void>` |
+| Export                     | Type                  |
+| -------------------------- | --------------------- |
+| `underlinePlugin`          | `LexifyPlugin`        |
+| `FORMAT_UNDERLINE_COMMAND` | `LexifyCommand<void>` |
 
 ---
 
-## `@lexra/plugin-code`
+## `@lexify/plugin-strikethrough`
+
+| Export                         | Type                  |
+| ------------------------------ | --------------------- |
+| `strikethroughPlugin`          | `LexifyPlugin`        |
+| `FORMAT_STRIKETHROUGH_COMMAND` | `LexifyCommand<void>` |
+
+---
+
+## `@lexify/plugin-code`
 
 Inline code format. Not to be confused with code block (use `plugin-heading`'s
 block variant or a dedicated plugin).
 
-| Export | Type |
-|---|---|
-| `codePlugin` | `LexraPlugin` |
-| `FORMAT_CODE_COMMAND` | `LexraCommand<void>` |
+| Export                | Type                  |
+| --------------------- | --------------------- |
+| `codePlugin`          | `LexifyPlugin`        |
+| `FORMAT_CODE_COMMAND` | `LexifyCommand<void>` |
 
 ---
 
-## `@lexra/plugin-heading`
+## `@lexify/plugin-heading`
 
 Registers `HeadingNode` from `@lexical/rich-text`.
 
-| Export | Type | Payload |
-|---|---|---|
-| `headingPlugin` | `LexraPlugin` | — |
-| `SET_HEADING_COMMAND` | `LexraCommand<HeadingTag>` | `"h1"` \| `"h2"` … `"h6"` |
-| `REMOVE_HEADING_COMMAND` | `LexraCommand<void>` | — |
-| `HeadingTag` | union type | `"h1"` \| `"h2"` \| `"h3"` \| `"h4"` \| `"h5"` \| `"h6"` |
+| Export                   | Type                        | Payload                                                  |
+| ------------------------ | --------------------------- | -------------------------------------------------------- |
+| `headingPlugin`          | `LexifyPlugin`              | —                                                        |
+| `SET_HEADING_COMMAND`    | `LexifyCommand<HeadingTag>` | `"h1"` \| `"h2"` … `"h6"`                                |
+| `REMOVE_HEADING_COMMAND` | `LexifyCommand<void>`       | —                                                        |
+| `HeadingTag`             | union type                  | `"h1"` \| `"h2"` \| `"h3"` \| `"h4"` \| `"h5"` \| `"h6"` |
 
 ---
 
-## `@lexra/plugin-text-align`
+## `@lexify/plugin-text-align`
 
-| Export | Type | Payload |
-|---|---|---|
-| `textAlignPlugin` | `LexraPlugin` | — |
-| `SET_TEXT_ALIGN_COMMAND` | `LexraCommand<TextAlignValue>` | `"left"` \| `"center"` \| `"right"` \| `"justify"` |
-| `TextAlignValue` | union type | — |
+| Export                   | Type                            | Payload                                            |
+| ------------------------ | ------------------------------- | -------------------------------------------------- |
+| `textAlignPlugin`        | `LexifyPlugin`                  | —                                                  |
+| `SET_TEXT_ALIGN_COMMAND` | `LexifyCommand<TextAlignValue>` | `"left"` \| `"center"` \| `"right"` \| `"justify"` |
+| `TextAlignValue`         | union type                      | —                                                  |
 
 ---
 
-## `@lexra/plugin-font-size`
+## `@lexify/plugin-font-size`
 
 Applies `font-size` as an inline `style` attribute on `TextNode`s.
 
-| Export | Type | Payload |
-|---|---|---|
-| `fontSizePlugin` | `LexraPlugin` | — |
-| `SET_FONT_SIZE_COMMAND` | `LexraCommand<string>` | e.g. `"16px"`, `"1.2em"` |
-| `REMOVE_FONT_SIZE_COMMAND` | `LexraCommand<void>` | — |
+| Export                     | Type                    | Payload                  |
+| -------------------------- | ----------------------- | ------------------------ |
+| `fontSizePlugin`           | `LexifyPlugin`          | —                        |
+| `SET_FONT_SIZE_COMMAND`    | `LexifyCommand<string>` | e.g. `"16px"`, `"1.2em"` |
+| `REMOVE_FONT_SIZE_COMMAND` | `LexifyCommand<void>`   | —                        |
 
 Valid font-size units: `px`, `em`, `rem`, `%`, `pt`, `vh`, `vw`, `ch`, `ex`.
 Invalid values are ignored.
 
 ---
 
-## `@lexra/plugin-font-color`
+## `@lexify/plugin-font-color`
 
 Applies `color` as an inline `style` attribute on `TextNode`s.
 
-| Export | Type | Payload |
-|---|---|---|
-| `fontColorPlugin` | `LexraPlugin` | — |
-| `SET_FONT_COLOR_COMMAND` | `LexraCommand<string>` | Any valid CSS color |
-| `REMOVE_FONT_COLOR_COMMAND` | `LexraCommand<void>` | — |
+| Export                      | Type                    | Payload             |
+| --------------------------- | ----------------------- | ------------------- |
+| `fontColorPlugin`           | `LexifyPlugin`          | —                   |
+| `SET_FONT_COLOR_COMMAND`    | `LexifyCommand<string>` | Any valid CSS color |
+| `REMOVE_FONT_COLOR_COMMAND` | `LexifyCommand<void>`   | —                   |
 
 Accepts: hex (`#rgb`, `#rrggbb`, `#rrggbbaa`), functional (`rgb()`, `hsl()`,
 `oklch()`, etc.), ~35 named colors, `transparent`, `currentColor`.
 
 ---
 
-## `@lexra/plugin-link`
+## `@lexify/plugin-link`
 
 Registers `LinkNode` from `@lexical/link`.
 
-| Export | Type | Payload |
-|---|---|---|
-| `linkPlugin` | `LexraPlugin` | — |
-| `INSERT_LINK_COMMAND` | `LexraCommand<LinkPayload>` | `{ url, title?, target? }` |
-| `UPDATE_LINK_COMMAND` | `LexraCommand<LinkPayload>` | `{ url, title?, target? }` |
-| `REMOVE_LINK_COMMAND` | `LexraCommand<void>` | — |
-| `LinkPayload` | type | `{ url: string; title?: string; target?: string }` |
+| Export                | Type                         | Payload                                            |
+| --------------------- | ---------------------------- | -------------------------------------------------- |
+| `linkPlugin`          | `LexifyPlugin`               | —                                                  |
+| `INSERT_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, title?, target? }`                         |
+| `UPDATE_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, title?, target? }`                         |
+| `REMOVE_LINK_COMMAND` | `LexifyCommand<void>`        | —                                                  |
+| `LinkPayload`         | type                         | `{ url: string; title?: string; target?: string }` |
 
 ---
 
-## `@lexra/plugin-list`
+## `@lexify/plugin-list`
 
 Registers `ListNode` and `ListItemNode` from `@lexical/list`.
 
-| Export | Type | Payload |
-|---|---|---|
-| `listPlugin` | `LexraPlugin` | — |
-| `INSERT_BULLET_LIST_COMMAND` | `LexraCommand<void>` | — |
-| `INSERT_NUMBER_LIST_COMMAND` | `LexraCommand<void>` | — |
-| `REMOVE_LIST_COMMAND` | `LexraCommand<void>` | — |
-| `INDENT_LIST_COMMAND` | `LexraCommand<void>` | — |
-| `OUTDENT_LIST_COMMAND` | `LexraCommand<void>` | — |
+| Export                       | Type                  | Payload |
+| ---------------------------- | --------------------- | ------- |
+| `listPlugin`                 | `LexifyPlugin`        | —       |
+| `INSERT_BULLET_LIST_COMMAND` | `LexifyCommand<void>` | —       |
+| `INSERT_NUMBER_LIST_COMMAND` | `LexifyCommand<void>` | —       |
+| `REMOVE_LIST_COMMAND`        | `LexifyCommand<void>` | —       |
+| `INDENT_LIST_COMMAND`        | `LexifyCommand<void>` | —       |
+| `OUTDENT_LIST_COMMAND`       | `LexifyCommand<void>` | —       |
 
 ---
 
-## `@lexra/plugin-utils`
+## `@lexify/plugin-utils`
 
 Shared CSS style string utilities used by other plugins.
 
 ```bash
-pnpm add @lexra/plugin-utils
+pnpm add @lexify/plugin-utils
 ```
 
-| Export | Signature | Description |
-|---|---|---|
-| `parseStyleString` | `(style: string) => Map<string, string>` | Parse `style` attribute string |
-| `serializeStyleMap` | `(map: Map<string, string>) => string` | Serialize back to string |
-| `setStyleProperty` | `(existing: string, prop: string, value: string \| null) => string` | Set or remove a property |
-| `isValidColor` | `(value: string) => boolean` | Validate CSS color |
-| `isValidFontSize` | `(value: string) => boolean` | Validate CSS font-size |
+| Export              | Signature                                                           | Description                    |
+| ------------------- | ------------------------------------------------------------------- | ------------------------------ |
+| `parseStyleString`  | `(style: string) => Map<string, string>`                            | Parse `style` attribute string |
+| `serializeStyleMap` | `(map: Map<string, string>) => string`                              | Serialize back to string       |
+| `setStyleProperty`  | `(existing: string, prop: string, value: string \| null) => string` | Set or remove a property       |
+| `isValidColor`      | `(value: string) => boolean`                                        | Validate CSS color             |
+| `isValidFontSize`   | `(value: string) => boolean`                                        | Validate CSS font-size         |
 
 ---
 
-## `@lexra/test-utils`
+## `@lexify/test-utils`
 
 Testing helpers (currently a stub).
 
 ```bash
-pnpm add -D @lexra/test-utils
+pnpm add -D @lexify/test-utils
 ```
 
-| Export | Description |
-|---|---|
-| `createTestEditor(config?)` | Create an editor pre-wired for tests |
-| `dispatchOnce(editor, command, payload)` | Dispatch + flush in one call |
+| Export                                   | Description                          |
+| ---------------------------------------- | ------------------------------------ |
+| `createTestEditor(config?)`              | Create an editor pre-wired for tests |
+| `dispatchOnce(editor, command, payload)` | Dispatch + flush in one call         |
 
 ---
 
-## `@lexra/e2e`
+## `@lexify/e2e`
 
-Playwright configuration (stub). Run via `pnpm -F @lexra/e2e test`.
+Playwright configuration (stub). Run via `pnpm -F @lexify/e2e test`.

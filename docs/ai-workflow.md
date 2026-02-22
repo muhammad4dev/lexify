@@ -1,6 +1,6 @@
-# Lexra AI Workflow (GitHub Copilot–Specific)
+# Lexify AI Workflow (GitHub Copilot–Specific)
 
-This document defines the **official AI development workflow** for Lexra when using  
+This document defines the **official AI development workflow** for Lexify when using  
 :contentReference[oaicite:0]{index=0} (Chat + Agent mode).
 
 The goal is to:
@@ -22,7 +22,7 @@ Copilot is an assistant — not an architect.
 
 Every AI-generated change must:
 
-- Respect Lexra’s layered architecture
+- Respect Lexify’s layered architecture
 - Follow plugin-first design
 - Include tests
 - Preserve RTL compatibility
@@ -37,7 +37,7 @@ If Copilot violates any of these, reject the output.
 
 # 2. Repository Architecture Reminder
 
-Lexra is structured as:
+Lexify is structured as:
 
 ```
 
@@ -54,10 +54,10 @@ e2e/
 
 ### Rules
 
-- `@lexra/core` → no React, no UI, no Lexical public types
-- `@lexra/react` → bindings only
-- `@lexra/plugins/*` → feature isolation
-- `@lexra/ui` → optional visual layer only
+- `@lexify/core` → no React, no UI, no Lexical public types
+- `@lexify/react` → bindings only
+- `@lexify/plugins/*` → feature isolation
+- `@lexify/ui` → optional visual layer only
 - `test-utils` → testing helpers only
 
 Copilot must not blur boundaries.
@@ -95,7 +95,7 @@ Do not proceed until plan looks correct.
 
 After approving the plan:
 
-> Generate full TypeScript implementation following Lexra architecture. Include no `any`. No public Lexical types.
+> Generate full TypeScript implementation following Lexify architecture. Include no `any`. No public Lexical types.
 
 Ensure:
 
@@ -152,11 +152,11 @@ Refactor before merging.
 
 ```
 
-Create a Lexra plugin named <PLUGIN_NAME>.
+Create a Lexify plugin named <PLUGIN_NAME>.
 
 Requirements:
 
-* Located in @lexra/plugin-<name>
+* Located in @lexify/plugin-<name>
 * Must register commands
 * Must not expose Lexical types
 * Must support undo/redo
@@ -177,7 +177,7 @@ Then analyze edge cases.
 
 ```
 
-Implement an inline style plugin for Lexra.
+Implement an inline style plugin for Lexify.
 
 Constraints:
 
@@ -198,7 +198,7 @@ Plan first. Then implement.
 
 ```
 
-We are modifying @lexra/core.
+We are modifying @lexify/core.
 
 Constraints:
 
@@ -221,7 +221,7 @@ Then provide migration notes.
 
 ```
 
-We are modifying @lexra/react.
+We are modifying @lexify/react.
 
 Requirements:
 
@@ -359,7 +359,7 @@ Copilot adapts to context — keep context clean.
 
 Copilot assists.
 
-Lexra’s architecture leads.
+Lexify’s architecture leads.
 
 Structure > Speed.
 Tests > Assumptions.

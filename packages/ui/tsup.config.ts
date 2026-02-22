@@ -7,5 +7,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  external: ["react", "react-dom", "@lexra/react"],
+  external: ["react", "react-dom", "@lexify/react"],
 });

@@ -1,7 +1,7 @@
 {
-  "name": "@lexra/e2e",
+  "name": "@lexify/e2e",
   "version": "0.0.1",
-  "description": "End-to-end tests for Lexra",
+  "description": "End-to-end tests for Lexify",
   "private": true,
   "scripts": {
     "test": "playwright test",

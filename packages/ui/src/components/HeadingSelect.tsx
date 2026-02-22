@@ -1,15 +1,17 @@
 import * as React from "react";
-import { useLexraEditor } from "@lexra/react";
+import { useLexifyEditor } from "@lexify/react";
 import {
   SET_HEADING_COMMAND,
   REMOVE_HEADING_COMMAND,
-} from "@lexra/plugin-heading";
-import type { HeadingTag } from "@lexra/plugin-heading";
+} from "@lexify/plugin-heading";
+import type { HeadingTag } from "@lexify/plugin-heading";
 
 export type HeadingValue = HeadingTag | "paragraph";
 
-export interface HeadingSelectProps
-  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "onChange" | "value"> {
+export interface HeadingSelectProps extends Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  "onChange" | "value"
+> {
   value?: HeadingValue;
   onChange?: (value: HeadingValue) => void;
 }
@@ -37,7 +39,7 @@ export const HeadingSelect = React.forwardRef<
     },
     ref,
   ) => {
-    const editor = useLexraEditor();
+    const editor = useLexifyEditor();
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const next = e.target.value as HeadingValue;

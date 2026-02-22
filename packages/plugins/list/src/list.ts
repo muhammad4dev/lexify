@@ -14,31 +14,31 @@ import {
   ListNode,
   ListItemNode,
 } from "@lexical/list";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
 // ─── Commands ─────────────────────────────────────────────────────────────────
 
-export const INSERT_UNORDERED_LIST_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:list:insert:bullet");
+export const INSERT_UNORDERED_LIST_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:list:insert:bullet");
 
-export const INSERT_ORDERED_LIST_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:list:insert:number");
+export const INSERT_ORDERED_LIST_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:list:insert:number");
 
-export const REMOVE_LIST_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:list:remove");
+export const REMOVE_LIST_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:list:remove");
 
-export const INDENT_LIST_ITEM_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:list:indent");
+export const INDENT_LIST_ITEM_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:list:indent");
 
-export const OUTDENT_LIST_ITEM_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:list:outdent");
+export const OUTDENT_LIST_ITEM_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:list:outdent");
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 type ListType = "bullet" | "number";
 
-function insertList(editor: LexraEditor, listType: ListType): void {
+function insertList(editor: LexifyEditor, listType: ListType): void {
   editor.update(() => {
     const selection = $getSelection();
     if (!$isRangeSelection(selection)) return;
@@ -68,7 +68,7 @@ function insertList(editor: LexraEditor, listType: ListType): void {
   });
 }
 
-function removeList(editor: LexraEditor): void {
+function removeList(editor: LexifyEditor): void {
   editor.update(() => {
     const selection = $getSelection();
     if (!$isRangeSelection(selection)) return;
@@ -101,11 +101,11 @@ function removeList(editor: LexraEditor): void {
 
 // ─── Plugin ───────────────────────────────────────────────────────────────────
 
-export const listPlugin: LexraPlugin = {
-  name: "lexra/list",
+export const listPlugin: LexifyPlugin = {
+  name: "lexify/list",
   nodes: [ListNode, ListItemNode],
 
-  register(editor: LexraEditor): () => void {
+  register(editor: LexifyEditor): () => void {
     const unsubBullet = editor.registerCommandHandler(
       INSERT_UNORDERED_LIST_COMMAND,
       () => insertList(editor, "bullet"),
@@ -116,39 +116,46 @@ export const listPlugin: LexraPlugin = {
       () => insertList(editor, "number"),
     );
 
-    const unsubRemove = editor.registerCommandHandler(
-      REMOVE_LIST_COMMAND,
-      () => removeList(editor),
+    const unsubRemove = editor.registerCommandHandler(REMOVE_LIST_COMMAND, () =>
+      removeList(editor),
     );
 
     // Indent/outdent delegate to Lexical's built-in commands via update
-    const unsubIndent = editor.registerCommandHandler(INDENT_LIST_ITEM_COMMAND, () => {
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          selection.getNodes().forEach((node) => {
-            let item = node.getParent();
-            while (item && !$isListItemNode(item)) item = item?.getParent() ?? null;
-            if ($isListItemNode(item)) item.setIndent(item.getIndent() + 1);
-          });
-        }
-      });
-    });
+    const unsubIndent = editor.registerCommandHandler(
+      INDENT_LIST_ITEM_COMMAND,
+      () => {
+        editor.update(() => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            selection.getNodes().forEach((node) => {
+              let item = node.getParent();
+              while (item && !$isListItemNode(item))
+                item = item?.getParent() ?? null;
+              if ($isListItemNode(item)) item.setIndent(item.getIndent() + 1);
+            });
+          }
+        });
+      },
+    );
 
-    const unsubOutdent = editor.registerCommandHandler(OUTDENT_LIST_ITEM_COMMAND, () => {
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          selection.getNodes().forEach((node) => {
-            let item = node.getParent();
-            while (item && !$isListItemNode(item)) item = item?.getParent() ?? null;
-            if ($isListItemNode(item)) {
-              item.setIndent(Math.max(0, item.getIndent() - 1));
-            }
-          });
-        }
-      });
-    });
+    const unsubOutdent = editor.registerCommandHandler(
+      OUTDENT_LIST_ITEM_COMMAND,
+      () => {
+        editor.update(() => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            selection.getNodes().forEach((node) => {
+              let item = node.getParent();
+              while (item && !$isListItemNode(item))
+                item = item?.getParent() ?? null;
+              if ($isListItemNode(item)) {
+                item.setIndent(Math.max(0, item.getIndent() - 1));
+              }
+            });
+          }
+        });
+      },
+    );
 
     return () => {
       unsubBullet();

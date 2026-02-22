@@ -1,13 +1,13 @@
 import { $getSelection, $isRangeSelection } from "lexical";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
-export const FORMAT_UNDERLINE_COMMAND: LexraCommand<void> =
-  createCommand<void>("lexra:format:underline");
+export const FORMAT_UNDERLINE_COMMAND: LexifyCommand<void> =
+  createCommand<void>("lexify:format:underline");
 
-export const underlinePlugin: LexraPlugin = {
-  name: "lexra/underline",
-  register(editor: LexraEditor): () => void {
+export const underlinePlugin: LexifyPlugin = {
+  name: "lexify/underline",
+  register(editor: LexifyEditor): () => void {
     return editor.registerCommandHandler(FORMAT_UNDERLINE_COMMAND, () => {
       editor.update(() => {
         const selection = $getSelection();

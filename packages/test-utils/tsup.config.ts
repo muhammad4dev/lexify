@@ -7,5 +7,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  external: ["vitest", "@lexra/core"],
+  external: ["vitest", "@lexify/core"],
 });

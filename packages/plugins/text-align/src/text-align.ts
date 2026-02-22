@@ -4,8 +4,8 @@ import {
   $isElementNode,
   type ElementFormatType,
 } from "lexical";
-import { createCommand } from "@lexra/core";
-import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
+import { createCommand } from "@lexify/core";
+import type { LexifyPlugin, LexifyEditor, LexifyCommand } from "@lexify/core";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -13,19 +13,25 @@ import type { LexraPlugin, LexraEditor, LexraCommand } from "@lexra/core";
  * Supported alignment values.
  * Prefer "start"/"end" over "left"/"right" for RTL compatibility.
  */
-export type TextAlignValue = "left" | "right" | "center" | "justify" | "start" | "end";
+export type TextAlignValue =
+  | "left"
+  | "right"
+  | "center"
+  | "justify"
+  | "start"
+  | "end";
 
 // ─── Command ──────────────────────────────────────────────────────────────────
 
-export const SET_TEXT_ALIGN_COMMAND: LexraCommand<TextAlignValue> =
-  createCommand<TextAlignValue>("lexra:block:text-align");
+export const SET_TEXT_ALIGN_COMMAND: LexifyCommand<TextAlignValue> =
+  createCommand<TextAlignValue>("lexify:block:text-align");
 
 // ─── Plugin ───────────────────────────────────────────────────────────────────
 
-export const textAlignPlugin: LexraPlugin = {
-  name: "lexra/text-align",
+export const textAlignPlugin: LexifyPlugin = {
+  name: "lexify/text-align",
 
-  register(editor: LexraEditor): () => void {
+  register(editor: LexifyEditor): () => void {
     return editor.registerCommandHandler(SET_TEXT_ALIGN_COMMAND, (value) => {
       editor.update(() => {
         const selection = $getSelection();

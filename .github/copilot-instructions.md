@@ -1,6 +1,6 @@
-# Copilot Instructions for Lexra
+# Copilot Instructions for Lexify
 
-**Lexra** is a headless, plugin-driven Rich Text Editor built on top of Lexical. It is a library, not an application.
+**Lexify** is a headless, plugin-driven Rich Text Editor built on top of Lexical. It is a library, not an application.
 
 ---
 
@@ -25,18 +25,19 @@ pnpm workspace monorepo with strict layer boundaries:
 
 ```
 packages/
-  core/        → @lexra/core     — engine abstraction only; no React, no UI, no public Lexical types
-  react/       → @lexra/react    — React bindings only; no business logic
-  plugins/     → @lexra/plugins/* — feature plugins; tree-shakeable, isolated, no UI dependency
-  ui/          → @lexra/ui       — optional visual components only
-  themes/      → @lexra/themes   — styling presets only
+  core/        → @lexify/core     — engine abstraction only; no React, no UI, no public Lexical types
+  react/       → @lexify/react    — React bindings only; no business logic
+  plugins/     → @lexify/plugins/* — feature plugins; tree-shakeable, isolated, no UI dependency
+  ui/          → @lexify/ui       — optional visual components only
+  themes/      → @lexify/themes   — styling presets only
   test-utils/  →                 — shared testing helpers only
   e2e/         →                 — end-to-end tests only
 ```
 
 **Layer rules:**
-- `@lexra/core` must not import from React, UI, or any Lexical public types
-- Plugins must not import from `@lexra/ui`
+
+- `@lexify/core` must not import from React, UI, or any Lexical public types
+- Plugins must not import from `@lexify/ui`
 - Cross-package dependencies use `workspace:*` protocol; never relative deep imports
 
 Every non-engine feature must be a plugin. If it's not engine-level, it belongs in `packages/plugins/`.
@@ -66,17 +67,20 @@ Do not use Vite, Webpack, or Rollup directly to build library packages. Builds m
 **TypeScript:** Strict mode throughout. No `any`, no implicit `any`, no unused exports.
 
 **Plugins:**
+
 - Register all behavior via the plugin command system
 - Must support undo/redo
 - Must be tree-shakeable (no side effects at module level)
 
-**Inline styles** (`@lexra/plugins/*` style features):
+**Inline styles** (`@lexify/plugins/*` style features):
+
 - Use `TextNode.setStyle` internally
 - Normalize and deduplicate style strings before applying
 - Whitelist allowed values; preserve existing styles
 - Ensure serialization round-trip integrity
 
-**React layer (`@lexra/react`):**
+**React layer (`@lexify/react`):**
+
 - Support both controlled and uncontrolled modes
 - No re-render per keystroke — memoize heavy logic
 - Must be SSR-safe
@@ -90,6 +94,7 @@ Do not use Vite, Webpack, or Rollup directly to build library packages. Builds m
 ## Testing Requirements (Vitest)
 
 Every feature needs:
+
 - Full and partial selection behavior
 - Multiple applications without duplication
 - Undo and redo validation
@@ -114,28 +119,32 @@ For every feature, follow this order — do not skip steps:
 ## Prompt Templates
 
 **New plugin:**
+
 ```
-Create a Lexra plugin named <PLUGIN_NAME> in @lexra/plugin-<name>.
+Create a Lexify plugin named <PLUGIN_NAME> in @lexify/plugin-<name>.
 Must register commands, support undo/redo, not expose Lexical types, not duplicate inline styles, include Vitest tests, respect RTL.
 Plan first. Then implement. Then tests. Then edge cases.
 ```
 
 **Inline style plugin:**
+
 ```
-Implement an inline style plugin for Lexra.
+Implement an inline style plugin for Lexify.
 Use TextNode.setStyle. Normalize and deduplicate styles. Whitelist values. Preserve existing styles. Maintain undo/redo. Include tests.
 Plan first. Then implement.
 ```
 
-**Modifying @lexra/core:**
+**Modifying @lexify/core:**
+
 ```
-Modifying @lexra/core. No React, no UI, no Lexical public types. Strict TypeScript. Backward compatible.
+Modifying @lexify/core. No React, no UI, no Lexical public types. Strict TypeScript. Backward compatible.
 Analyze architectural risks first. Then propose. Then implement. Then migration notes.
 ```
 
-**Modifying @lexra/react:**
+**Modifying @lexify/react:**
+
 ```
-Modifying @lexra/react. Controlled & uncontrolled support. No re-render per keystroke. Memoize. SSR-safe. Strict typing. Tests required.
+Modifying @lexify/react. Controlled & uncontrolled support. No re-render per keystroke. Memoize. SSR-safe. Strict typing. Tests required.
 Plan first.
 ```
 
@@ -145,7 +154,7 @@ Plan first.
 
 - Using `any`
 - Exporting Lexical types publicly
-- UI logic inside `@lexra/core`
+- UI logic inside `@lexify/core`
 - Bypassing the plugin command system
 - Applying inline styles without normalization/deduplication
 - Ignoring undo/redo

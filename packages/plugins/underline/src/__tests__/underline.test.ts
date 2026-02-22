@@ -1,17 +1,20 @@
 import { describe, it, expect, vi } from "vitest";
 import { underlinePlugin, FORMAT_UNDERLINE_COMMAND } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("underlinePlugin", () => {
   it("has the correct name", () => {
-    expect(underlinePlugin.name).toBe("lexra/underline");
+    expect(underlinePlugin.name).toBe("lexify/underline");
   });
 
   it("registers a handler for FORMAT_UNDERLINE_COMMAND on mount", () => {
     const editor = createEditor({ namespace: "test" });
     const spy = vi.spyOn(editor, "registerCommandHandler");
     underlinePlugin.register(editor);
-    expect(spy).toHaveBeenCalledWith(FORMAT_UNDERLINE_COMMAND, expect.any(Function));
+    expect(spy).toHaveBeenCalledWith(
+      FORMAT_UNDERLINE_COMMAND,
+      expect.any(Function),
+    );
   });
 
   it("returns a cleanup function", () => {
@@ -48,7 +51,7 @@ describe("underlinePlugin", () => {
 
 describe("FORMAT_UNDERLINE_COMMAND", () => {
   it("has the correct type string", () => {
-    expect(FORMAT_UNDERLINE_COMMAND.type).toBe("lexra:format:underline");
+    expect(FORMAT_UNDERLINE_COMMAND.type).toBe("lexify:format:underline");
   });
 
   it("does not expose Lexical types", () => {

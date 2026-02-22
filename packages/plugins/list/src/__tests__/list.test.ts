@@ -7,11 +7,11 @@ import {
   INDENT_LIST_ITEM_COMMAND,
   OUTDENT_LIST_ITEM_COMMAND,
 } from "../index.js";
-import { createEditor } from "@lexra/core";
+import { createEditor } from "@lexify/core";
 
 describe("listPlugin", () => {
   it("has the correct name", () => {
-    expect(listPlugin.name).toBe("lexra/list");
+    expect(listPlugin.name).toBe("lexify/list");
   });
 
   it("registers ListNode and ListItemNode", () => {
@@ -85,11 +85,27 @@ describe("listPlugin", () => {
 
 describe("list commands", () => {
   it.each([
-    ["INSERT_UNORDERED_LIST_COMMAND", INSERT_UNORDERED_LIST_COMMAND, "lexra:list:insert:bullet"],
-    ["INSERT_ORDERED_LIST_COMMAND", INSERT_ORDERED_LIST_COMMAND, "lexra:list:insert:number"],
-    ["REMOVE_LIST_COMMAND", REMOVE_LIST_COMMAND, "lexra:list:remove"],
-    ["INDENT_LIST_ITEM_COMMAND", INDENT_LIST_ITEM_COMMAND, "lexra:list:indent"],
-    ["OUTDENT_LIST_ITEM_COMMAND", OUTDENT_LIST_ITEM_COMMAND, "lexra:list:outdent"],
+    [
+      "INSERT_UNORDERED_LIST_COMMAND",
+      INSERT_UNORDERED_LIST_COMMAND,
+      "lexify:list:insert:bullet",
+    ],
+    [
+      "INSERT_ORDERED_LIST_COMMAND",
+      INSERT_ORDERED_LIST_COMMAND,
+      "lexify:list:insert:number",
+    ],
+    ["REMOVE_LIST_COMMAND", REMOVE_LIST_COMMAND, "lexify:list:remove"],
+    [
+      "INDENT_LIST_ITEM_COMMAND",
+      INDENT_LIST_ITEM_COMMAND,
+      "lexify:list:indent",
+    ],
+    [
+      "OUTDENT_LIST_ITEM_COMMAND",
+      OUTDENT_LIST_ITEM_COMMAND,
+      "lexify:list:outdent",
+    ],
   ] as const)("$0 has correct type", (_name, cmd, expected) => {
     expect(cmd.type).toBe(expected);
   });
