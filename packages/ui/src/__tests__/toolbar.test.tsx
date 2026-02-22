@@ -8,6 +8,8 @@ import type { LexifyEditor } from "@lexify/core";
 
 function createMockEditor(): LexifyEditor {
   return {
+    namespace: "test",
+    _lexical: {} as any,
     registerPlugin: vi.fn(),
     registerCommandHandler: vi.fn(() => vi.fn()),
     dispatchCommand: vi.fn(),
