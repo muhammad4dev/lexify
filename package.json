@@ -5,7 +5,8 @@
   "description": "Headless, plugin-driven Rich Text Editor built on Lexical",
   "scripts": {
     "build": "pnpm -r build",
-    "test": "pnpm -r test",
+    "test": "pnpm -r --filter='!@lexify/e2e' --filter='!@lexify/demo' test",
+    "test:e2e": "pnpm --filter @lexify/e2e test",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean"
