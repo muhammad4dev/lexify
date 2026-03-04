@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLexifyEditor } from "@lexify/react";
-import { FORMAT_UNDERLINE_COMMAND } from "@lexify/plugin-underline";
+import { FORMAT_UNDERLINE_COMMAND } from "@lexify/plugins";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 

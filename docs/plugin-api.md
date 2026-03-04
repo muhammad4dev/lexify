@@ -163,7 +163,7 @@ Used by `plugin-font-size` and `plugin-font-color`. Key steps:
 
 ```typescript
 import { $getSelection, $isRangeSelection, $isTextNode } from "lexical";
-import { setStyleProperty, isValidFontSize } from "@lexify/plugin-utils";
+import { setStyleProperty, isValidFontSize } from "@lexify/plugins";
 
 editor.update(() => {
   const selection = $getSelection();
@@ -268,13 +268,16 @@ describe("myPlugin", () => {
 
 ## Packaging a plugin
 
-Standard plugin package structure:
+If you're contributing a plugin to `@lexify/plugins`, add a new source file
+under `packages/plugins/src/` and re-export it from `packages/plugins/src/index.ts`.
+
+For a standalone third-party plugin, use this structure:
 
 ```
-packages/plugins/my-plugin/
+my-lexify-plugin/
   src/
-    my-plugin.ts   # plugin + command exports
-    index.ts       # barrel export
+    my-plugin.ts
+    index.ts
     __tests__/
       my-plugin.test.ts
   package.json

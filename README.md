@@ -12,22 +12,11 @@ and the command system is fully typed and testable.
 
 | Package                                                          | Description                                                              |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [`@lexify/core`](packages/core)                                  | Editor engine: `createEditor`, command bus, plugin registry              |
-| [`@lexify/react`](packages/react)                                | React bindings: `LexifyComposer`, `useLexifyEditor`, `LexifyContext`     |
-| [`@lexify/ui`](packages/ui)                                      | Unstyled toolbar components: `Toolbar`, `BoldButton`, `HeadingSelect`, … |
-| [`@lexify/themes`](packages/themes)                              | Theme system: `baseTheme`, `darkTheme`, `css/base.css`                   |
-| [`@lexify/plugin-utils`](packages/plugins/utils)                 | Shared CSS style utilities used by style plugins                         |
-| [`@lexify/plugin-bold`](packages/plugins/bold)                   | Bold text format                                                         |
-| [`@lexify/plugin-italic`](packages/plugins/italic)               | Italic text format                                                       |
-| [`@lexify/plugin-underline`](packages/plugins/underline)         | Underline text format                                                    |
-| [`@lexify/plugin-strikethrough`](packages/plugins/strikethrough) | Strikethrough text format                                                |
-| [`@lexify/plugin-code`](packages/plugins/code)                   | Inline code text format                                                  |
-| [`@lexify/plugin-link`](packages/plugins/link)                   | Insert/update/remove links                                               |
-| [`@lexify/plugin-font-size`](packages/plugins/font-size)         | Inline font-size via CSS style                                           |
-| [`@lexify/plugin-font-color`](packages/plugins/font-color)       | Inline font color via CSS style                                          |
-| [`@lexify/plugin-text-align`](packages/plugins/text-align)       | Block-level text alignment                                               |
-| [`@lexify/plugin-heading`](packages/plugins/heading)             | Heading blocks (h1–h6)                                                   |
-| [`@lexify/plugin-list`](packages/plugins/list)                   | Bullet and numbered lists                                                |
+| [`@lexify/core`](packages/core)       | Editor engine: `createEditor`, command bus, plugin registry              |
+| [`@lexify/react`](packages/react)     | React bindings: `LexifyComposer`, `useLexifyEditor`, `LexifyContext`     |
+| [`@lexify/plugins`](packages/plugins) | All plugins in one tree-shakeable package                                |
+| [`@lexify/ui`](packages/ui)           | Unstyled toolbar components: `Toolbar`, `BoldButton`, `HeadingSelect`, … |
+| [`@lexify/themes`](packages/themes)   | Theme system: `baseTheme`, `darkTheme`, `css/base.css`                   |
 
 ---
 
@@ -36,15 +25,24 @@ and the command system is fully typed and testable.
 ### Install
 
 ```bash
-pnpm add @lexify/core @lexify/react lexical @lexical/react
+# Required peer deps
+pnpm add lexical @lexical/react
+
+# Core
+pnpm add @lexify/core @lexify/react
+
+# All plugins — tree-shakeable, bundler drops what you don't import
+pnpm add @lexify/plugins
+
+# Optional: pre-built toolbar + themes
+pnpm add @lexify/ui @lexify/themes
 ```
 
 ### Minimal editor
 
 ```tsx
 import { LexifyComposer } from "@lexify/react";
-import { boldPlugin } from "@lexify/plugin-bold";
-import { italicPlugin } from "@lexify/plugin-italic";
+import { boldPlugin, italicPlugin } from "@lexify/plugins";
 
 export function MyEditor() {
   return (
@@ -74,7 +72,7 @@ import "@lexify/themes/css/base.css";
 
 ```tsx
 import { useLexifyEditor } from "@lexify/react";
-import { FORMAT_BOLD_COMMAND } from "@lexify/plugin-bold";
+import { FORMAT_BOLD_COMMAND } from "@lexify/plugins";
 
 function BoldButton() {
   const editor = useLexifyEditor();
@@ -130,7 +128,7 @@ pnpm clean            # remove all dist/ folders
 
 ```bash
 pnpm --filter @lexify/core build
-pnpm --filter @lexify/plugin-bold test
+pnpm --filter @lexify/plugins test
 pnpm --filter @lexify/ui test:watch
 ```
 

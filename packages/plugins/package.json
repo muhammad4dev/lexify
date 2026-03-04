@@ -1,7 +1,7 @@
 {
-  "name": "@lexify/ui",
+  "name": "@lexify/plugins",
   "version": "0.0.1",
-  "description": "Optional visual components for Lexify",
+  "description": "All Lexify plugins — tree-shakeable, single install",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -26,21 +26,18 @@
   },
   "dependencies": {
     "@lexify/core": "workspace:*",
-    "@lexify/react": "workspace:*",
-    "@lexify/plugins": "workspace:*"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.0",
-    "jsdom": "^26.1.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "tsup": "^8.4.0",
-    "vitest": "^3.0.9"
+    "@lexical/history": "^0.31.1",
+    "@lexical/link": "^0.31.1",
+    "@lexical/list": "^0.31.1",
+    "@lexical/rich-text": "^0.31.1",
+    "@lexical/selection": "^0.31.1",
+    "lexical": "^0.31.1"
   },
   "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19"
+    "lexical": "^0.31.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "vitest": "^3.0.9"
   }
 }

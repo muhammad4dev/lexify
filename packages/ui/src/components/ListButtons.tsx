@@ -4,7 +4,7 @@ import {
   INSERT_UNORDERED_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
   REMOVE_LIST_COMMAND,
-} from "@lexify/plugin-list";
+} from "@lexify/plugins";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 

@@ -3,8 +3,8 @@ import { useLexifyEditor } from "@lexify/react";
 import {
   SET_HEADING_COMMAND,
   REMOVE_HEADING_COMMAND,
-} from "@lexify/plugin-heading";
-import type { HeadingTag } from "@lexify/plugin-heading";
+} from "@lexify/plugins";
+import type { HeadingTag } from "@lexify/plugins";
 
 export type HeadingValue = HeadingTag | "paragraph";
 

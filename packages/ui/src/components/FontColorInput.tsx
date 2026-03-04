@@ -3,8 +3,8 @@ import { useLexifyEditor } from "@lexify/react";
 import {
   SET_FONT_COLOR_COMMAND,
   REMOVE_FONT_COLOR_COMMAND,
-} from "@lexify/plugin-font-color";
-import { isValidColor } from "@lexify/plugin-utils";
+} from "@lexify/plugins";
+import { isValidColor } from "@lexify/plugins";
 
 export interface FontColorInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

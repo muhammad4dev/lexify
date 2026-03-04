@@ -18,7 +18,7 @@ import {
   FontColorInput,
 } from "@lexify/ui";
 import { useLexifyEditor } from "@lexify/react";
-import { INSERT_LINK_COMMAND } from "@lexify/plugin-link";
+import { INSERT_LINK_COMMAND } from "@lexify/plugins";
 import type { HeadingValue } from "@lexify/ui";
 
 export function EditorToolbar() {

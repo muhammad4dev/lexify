@@ -14,11 +14,11 @@ pnpm add lexical @lexical/react
 # Core packages
 pnpm add @lexify/core @lexify/react
 
+# All plugins — tree-shakeable (bundler drops what you don't import)
+pnpm add @lexify/plugins
+
 # Optional: theme + UI toolbar
 pnpm add @lexify/themes @lexify/ui
-
-# Plugins (install only what you need)
-pnpm add @lexify/plugin-bold @lexify/plugin-italic @lexify/plugin-heading
 ```
 
 ---
@@ -32,8 +32,7 @@ internally.
 ```tsx
 // MyEditor.tsx
 import { LexifyComposer } from "@lexify/react";
-import { boldPlugin } from "@lexify/plugin-bold";
-import { italicPlugin } from "@lexify/plugin-italic";
+import { boldPlugin, italicPlugin } from "@lexify/plugins";
 
 export function MyEditor() {
   return (
@@ -67,9 +66,7 @@ Plugins are plain objects with a `name`, optional `nodes[]`, and a `register()`
 function. Pass them in the `plugins` array:
 
 ```tsx
-import { boldPlugin } from "@lexify/plugin-bold";
-import { headingPlugin } from "@lexify/plugin-heading";
-import { listPlugin } from "@lexify/plugin-list";
+import { boldPlugin, headingPlugin, listPlugin } from "@lexify/plugins";
 
 <LexifyComposer
   namespace="my-editor"
@@ -93,8 +90,7 @@ instance and dispatch commands:
 
 ```tsx
 import { useLexifyEditor } from "@lexify/react";
-import { FORMAT_BOLD_COMMAND } from "@lexify/plugin-bold";
-import { SET_HEADING_COMMAND } from "@lexify/plugin-heading";
+import { FORMAT_BOLD_COMMAND, SET_HEADING_COMMAND } from "@lexify/plugins";
 
 function MyToolbar() {
   const editor = useLexifyEditor();

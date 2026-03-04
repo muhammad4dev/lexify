@@ -63,25 +63,13 @@ GitHub Actions will then:
 
 ## Publishable packages
 
-| Package                        | Description            |
-| ------------------------------ | ---------------------- |
-| `@lexify/core`                 | Core engine            |
-| `@lexify/react`                | React bindings         |
-| `@lexify/themes`               | Theme objects + CSS    |
-| `@lexify/ui`                   | Toolbar components     |
-| `@lexify/plugin-bold`          | Bold plugin            |
-| `@lexify/plugin-italic`        | Italic plugin          |
-| `@lexify/plugin-underline`     | Underline plugin       |
-| `@lexify/plugin-strikethrough` | Strikethrough plugin   |
-| `@lexify/plugin-code`          | Inline code plugin     |
-| `@lexify/plugin-heading`       | Heading plugin         |
-| `@lexify/plugin-text-align`    | Text align plugin      |
-| `@lexify/plugin-font-size`     | Font size plugin       |
-| `@lexify/plugin-font-color`    | Font color plugin      |
-| `@lexify/plugin-link`          | Link plugin            |
-| `@lexify/plugin-list`          | List plugin            |
-| `@lexify/plugin-history`       | Undo/redo plugin       |
-| `@lexify/plugin-utils`         | Shared style utilities |
+| Package           | Description         |
+| ----------------- | ------------------- |
+| `@lexify/core`    | Core engine         |
+| `@lexify/react`   | React bindings      |
+| `@lexify/themes`  | Theme objects + CSS |
+| `@lexify/ui`      | Toolbar components  |
+| `@lexify/plugins` | All plugins         |
 
 **Not published** (mark `"private": true` in their `package.json`):
 

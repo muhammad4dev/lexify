@@ -3,8 +3,8 @@ import { useLexifyEditor } from "@lexify/react";
 import {
   SET_FONT_SIZE_COMMAND,
   REMOVE_FONT_SIZE_COMMAND,
-} from "@lexify/plugin-font-size";
-import { isValidFontSize } from "@lexify/plugin-utils";
+} from "@lexify/plugins";
+import { isValidFontSize } from "@lexify/plugins";
 
 export interface FontSizeInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

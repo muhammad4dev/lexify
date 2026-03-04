@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLexifyEditor } from "@lexify/react";
-import { REDO_COMMAND } from "@lexify/plugin-history";
+import { REDO_COMMAND } from "@lexify/plugins";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 

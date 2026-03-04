@@ -131,155 +131,92 @@ All components forward refs and accept all native HTML attributes.
 
 ---
 
-## `@lexify/plugin-bold`
+## `@lexify/plugins`
+
+All plugins in one tree-shakeable package. Your bundler (Vite, webpack, Rollup)
+will drop anything you don't import.
 
 ```bash
-pnpm add @lexify/plugin-bold
+pnpm add @lexify/plugins
 ```
 
-| Export                | Type                  | Description              |
-| --------------------- | --------------------- | ------------------------ |
-| `boldPlugin`          | `LexifyPlugin`        | Plugin object            |
-| `FORMAT_BOLD_COMMAND` | `LexifyCommand<void>` | Toggle bold on selection |
+### Format plugins
 
----
+| Export                         | Plugin              | Description             |
+| ------------------------------ | ------------------- | ----------------------- |
+| `boldPlugin`                   | `LexifyPlugin`      | Toggle bold             |
+| `FORMAT_BOLD_COMMAND`          | `LexifyCommand<void>` | —                     |
+| `italicPlugin`                 | `LexifyPlugin`      | Toggle italic           |
+| `FORMAT_ITALIC_COMMAND`        | `LexifyCommand<void>` | —                     |
+| `underlinePlugin`              | `LexifyPlugin`      | Toggle underline        |
+| `FORMAT_UNDERLINE_COMMAND`     | `LexifyCommand<void>` | —                     |
+| `strikethroughPlugin`          | `LexifyPlugin`      | Toggle strikethrough    |
+| `FORMAT_STRIKETHROUGH_COMMAND` | `LexifyCommand<void>` | —                     |
+| `codePlugin`                   | `LexifyPlugin`      | Toggle inline code      |
+| `FORMAT_CODE_COMMAND`          | `LexifyCommand<void>` | —                     |
 
-## `@lexify/plugin-italic`
+### Block plugins
 
-| Export                  | Type                  |
-| ----------------------- | --------------------- |
-| `italicPlugin`          | `LexifyPlugin`        |
-| `FORMAT_ITALIC_COMMAND` | `LexifyCommand<void>` |
+| Export                   | Plugin / Type                   | Notes                           |
+| ------------------------ | ------------------------------- | ------------------------------- |
+| `headingPlugin`          | `LexifyPlugin`                  | Registers `HeadingNode`         |
+| `SET_HEADING_COMMAND`    | `LexifyCommand<HeadingTag>`     | `"h1"` – `"h6"`                 |
+| `REMOVE_HEADING_COMMAND` | `LexifyCommand<void>`           | Converts back to paragraph      |
+| `HeadingTag`             | `"h1"\|"h2"\|"h3"\|"h4"\|"h5"\|"h6"` | —                         |
+| `textAlignPlugin`        | `LexifyPlugin`                  | —                               |
+| `SET_TEXT_ALIGN_COMMAND` | `LexifyCommand<TextAlignValue>` | `"left"\|"center"\|"right"\|…`  |
+| `TextAlignValue`         | union type                      | —                               |
+| `listPlugin`             | `LexifyPlugin`                  | Registers `ListNode`, `ListItemNode` |
+| `INSERT_UNORDERED_LIST_COMMAND` | `LexifyCommand<void>`    | —                               |
+| `INSERT_ORDERED_LIST_COMMAND`   | `LexifyCommand<void>`    | —                               |
+| `REMOVE_LIST_COMMAND`    | `LexifyCommand<void>`           | —                               |
+| `INDENT_LIST_ITEM_COMMAND` | `LexifyCommand<void>`         | —                               |
+| `OUTDENT_LIST_ITEM_COMMAND` | `LexifyCommand<void>`        | —                               |
 
----
+### Inline style plugins
 
-## `@lexify/plugin-underline`
+| Export                      | Type                    | Notes                          |
+| --------------------------- | ----------------------- | ------------------------------ |
+| `fontSizePlugin`            | `LexifyPlugin`          | Applies `font-size` style      |
+| `SET_FONT_SIZE_COMMAND`     | `LexifyCommand<string>` | e.g. `"16px"`, `"1.2em"`       |
+| `REMOVE_FONT_SIZE_COMMAND`  | `LexifyCommand<void>`   | —                              |
+| `fontColorPlugin`           | `LexifyPlugin`          | Applies `color` style          |
+| `SET_FONT_COLOR_COMMAND`    | `LexifyCommand<string>` | Any valid CSS color            |
+| `REMOVE_FONT_COLOR_COMMAND` | `LexifyCommand<void>`   | —                              |
 
-| Export                     | Type                  |
-| -------------------------- | --------------------- |
-| `underlinePlugin`          | `LexifyPlugin`        |
-| `FORMAT_UNDERLINE_COMMAND` | `LexifyCommand<void>` |
+Valid font-size units: `px`, `em`, `rem`, `%`, `pt`, `vh`, `vw`, `ch`, `ex`.  
+Valid colors: hex, functional (`rgb()`, `hsl()`, `oklch()`, …), ~35 named colors, `transparent`, `currentColor`.
 
----
-
-## `@lexify/plugin-strikethrough`
-
-| Export                         | Type                  |
-| ------------------------------ | --------------------- |
-| `strikethroughPlugin`          | `LexifyPlugin`        |
-| `FORMAT_STRIKETHROUGH_COMMAND` | `LexifyCommand<void>` |
-
----
-
-## `@lexify/plugin-code`
-
-Inline code format. Not to be confused with code block (use `plugin-heading`'s
-block variant or a dedicated plugin).
-
-| Export                | Type                  |
-| --------------------- | --------------------- |
-| `codePlugin`          | `LexifyPlugin`        |
-| `FORMAT_CODE_COMMAND` | `LexifyCommand<void>` |
-
----
-
-## `@lexify/plugin-heading`
-
-Registers `HeadingNode` from `@lexical/rich-text`.
-
-| Export                   | Type                        | Payload                                                  |
-| ------------------------ | --------------------------- | -------------------------------------------------------- |
-| `headingPlugin`          | `LexifyPlugin`              | —                                                        |
-| `SET_HEADING_COMMAND`    | `LexifyCommand<HeadingTag>` | `"h1"` \| `"h2"` … `"h6"`                                |
-| `REMOVE_HEADING_COMMAND` | `LexifyCommand<void>`       | —                                                        |
-| `HeadingTag`             | union type                  | `"h1"` \| `"h2"` \| `"h3"` \| `"h4"` \| `"h5"` \| `"h6"` |
-
----
-
-## `@lexify/plugin-text-align`
-
-| Export                   | Type                            | Payload                                            |
-| ------------------------ | ------------------------------- | -------------------------------------------------- |
-| `textAlignPlugin`        | `LexifyPlugin`                  | —                                                  |
-| `SET_TEXT_ALIGN_COMMAND` | `LexifyCommand<TextAlignValue>` | `"left"` \| `"center"` \| `"right"` \| `"justify"` |
-| `TextAlignValue`         | union type                      | —                                                  |
-
----
-
-## `@lexify/plugin-font-size`
-
-Applies `font-size` as an inline `style` attribute on `TextNode`s.
-
-| Export                     | Type                    | Payload                  |
-| -------------------------- | ----------------------- | ------------------------ |
-| `fontSizePlugin`           | `LexifyPlugin`          | —                        |
-| `SET_FONT_SIZE_COMMAND`    | `LexifyCommand<string>` | e.g. `"16px"`, `"1.2em"` |
-| `REMOVE_FONT_SIZE_COMMAND` | `LexifyCommand<void>`   | —                        |
-
-Valid font-size units: `px`, `em`, `rem`, `%`, `pt`, `vh`, `vw`, `ch`, `ex`.
-Invalid values are ignored.
-
----
-
-## `@lexify/plugin-font-color`
-
-Applies `color` as an inline `style` attribute on `TextNode`s.
-
-| Export                      | Type                    | Payload             |
-| --------------------------- | ----------------------- | ------------------- |
-| `fontColorPlugin`           | `LexifyPlugin`          | —                   |
-| `SET_FONT_COLOR_COMMAND`    | `LexifyCommand<string>` | Any valid CSS color |
-| `REMOVE_FONT_COLOR_COMMAND` | `LexifyCommand<void>`   | —                   |
-
-Accepts: hex (`#rgb`, `#rrggbb`, `#rrggbbaa`), functional (`rgb()`, `hsl()`,
-`oklch()`, etc.), ~35 named colors, `transparent`, `currentColor`.
-
----
-
-## `@lexify/plugin-link`
+### Link plugin
 
 Registers `LinkNode` from `@lexical/link`.
 
-| Export                | Type                         | Payload                                            |
-| --------------------- | ---------------------------- | -------------------------------------------------- |
-| `linkPlugin`          | `LexifyPlugin`               | —                                                  |
-| `INSERT_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, title?, target? }`                         |
-| `UPDATE_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, title?, target? }`                         |
-| `REMOVE_LINK_COMMAND` | `LexifyCommand<void>`        | —                                                  |
-| `LinkPayload`         | type                         | `{ url: string; title?: string; target?: string }` |
+| Export                | Type                         | Payload                    |
+| --------------------- | ---------------------------- | -------------------------- |
+| `linkPlugin`          | `LexifyPlugin`               | —                          |
+| `INSERT_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, target?, rel? }`   |
+| `UPDATE_LINK_COMMAND` | `LexifyCommand<LinkPayload>` | `{ url, target?, rel? }`   |
+| `REMOVE_LINK_COMMAND` | `LexifyCommand<void>`        | —                          |
+| `LinkPayload`         | type                         | `{ url: string; target?: string; rel?: string }` |
 
----
+### History plugin
 
-## `@lexify/plugin-list`
+| Export               | Type                  | Notes                            |
+| -------------------- | --------------------- | -------------------------------- |
+| `historyPlugin`      | `LexifyPlugin`        | Registers undo/redo via `@lexical/history` |
+| `UNDO_COMMAND`       | `LexifyCommand<void>` | —                                |
+| `REDO_COMMAND`       | `LexifyCommand<void>` | —                                |
+| `HISTORY_MERGE_DELAY`| `number`              | Default: `300` ms                |
 
-Registers `ListNode` and `ListItemNode` from `@lexical/list`.
+### Style utilities (also exported for custom plugins)
 
-| Export                       | Type                  | Payload |
-| ---------------------------- | --------------------- | ------- |
-| `listPlugin`                 | `LexifyPlugin`        | —       |
-| `INSERT_BULLET_LIST_COMMAND` | `LexifyCommand<void>` | —       |
-| `INSERT_NUMBER_LIST_COMMAND` | `LexifyCommand<void>` | —       |
-| `REMOVE_LIST_COMMAND`        | `LexifyCommand<void>` | —       |
-| `INDENT_LIST_COMMAND`        | `LexifyCommand<void>` | —       |
-| `OUTDENT_LIST_COMMAND`       | `LexifyCommand<void>` | —       |
-
----
-
-## `@lexify/plugin-utils`
-
-Shared CSS style string utilities used by other plugins.
-
-```bash
-pnpm add @lexify/plugin-utils
-```
-
-| Export              | Signature                                                           | Description                    |
-| ------------------- | ------------------------------------------------------------------- | ------------------------------ |
-| `parseStyleString`  | `(style: string) => Map<string, string>`                            | Parse `style` attribute string |
-| `serializeStyleMap` | `(map: Map<string, string>) => string`                              | Serialize back to string       |
-| `setStyleProperty`  | `(existing: string, prop: string, value: string \| null) => string` | Set or remove a property       |
-| `isValidColor`      | `(value: string) => boolean`                                        | Validate CSS color             |
-| `isValidFontSize`   | `(value: string) => boolean`                                        | Validate CSS font-size         |
+| Export              | Signature                                                           | Description              |
+| ------------------- | ------------------------------------------------------------------- | ------------------------ |
+| `parseStyleString`  | `(style: string) => Map<string, string>`                            | Parse inline style attr  |
+| `serializeStyleMap` | `(map: Map<string, string>) => string`                              | Serialize back to string |
+| `setStyleProperty`  | `(existing: string, prop: string, value: string \| null) => string` | Set or remove property   |
+| `isValidColor`      | `(value: string) => boolean`                                        | Validate CSS color       |
+| `isValidFontSize`   | `(value: string) => boolean`                                        | Validate CSS font-size   |
 
 ---
 

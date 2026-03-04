@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useLexifyEditor } from "@lexify/react";
-import { SET_TEXT_ALIGN_COMMAND } from "@lexify/plugin-text-align";
-import type { TextAlignValue } from "@lexify/plugin-text-align";
+import { SET_TEXT_ALIGN_COMMAND } from "@lexify/plugins";
+import type { TextAlignValue } from "@lexify/plugins";
 import { ToolbarButton } from "../primitives/ToolbarButton.js";
 import type { ToolbarButtonProps } from "../primitives/ToolbarButton.js";
 
