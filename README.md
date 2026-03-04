@@ -8,6 +8,17 @@ and the command system is fully typed and testable.
 
 ---
 
+## Documentation
+
+| Guide | Description |
+| ----- | ----------- |
+| [Getting Started](./docs/getting-started.md) | Install, configure, and build your first editor |
+| [Plugin API](./docs/plugin-api.md) | How to author and register plugins |
+| [Packages](./docs/packages.md) | Detailed per-package API reference |
+| [Publishing](./docs/publishing.md) | How to release new versions |
+
+---
+
 ## Packages
 
 | Package                                                          | Description                                                              |

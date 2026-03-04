@@ -1,7 +1,7 @@
 {
   "name": "@lexify/plugins",
   "version": "0.0.1",
-  "description": "All Lexify plugins — tree-shakeable, single install",
+  "description": "All Lexify plugins \u2014 tree-shakeable, single install",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -14,6 +14,8 @@
     }
   },
   "files": [
+    "LICENSE",
+    "README.md",
     "dist"
   ],
   "scripts": {
@@ -39,5 +41,15 @@
   "devDependencies": {
     "tsup": "^8.4.0",
     "vitest": "^3.0.9"
+  },
+  "license": "MIT",
+  "homepage": "https://muhammad4dev.github.io/lexify",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muhammad4dev/lexify.git",
+    "directory": "packages/plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/muhammad4dev/lexify/issues"
   }
 }

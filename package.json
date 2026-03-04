@@ -18,5 +18,15 @@
     "node": ">=20",
     "pnpm": ">=9"
   },
-  "packageManager": "pnpm@10.30.3"
+  "packageManager": "pnpm@10.30.3",
+  "license": "MIT",
+  "author": "Muhammad Mustafa <muhammadidev@outlook.com>",
+  "homepage": "https://muhammad4dev.github.io/lexify",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muhammad4dev/lexify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muhammad4dev/lexify/issues"
+  }
 }
