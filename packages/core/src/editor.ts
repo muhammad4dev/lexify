@@ -1,7 +1,7 @@
 import {
   createEditor as createLexicalEditor,
+  $getRoot,
   type LexicalEditor,
-  type EditorState,
   type SerializedEditorState,
 } from "lexical";
 import type {
@@ -74,8 +74,20 @@ export function createEditor(config: LexifyEditorConfig): LexifyEditor {
       }
     },
 
-    getEditorState(): EditorState {
+    getEditorState(): unknown {
       return lexical.getEditorState();
+    },
+
+    getTextContent(): string {
+      let text = "";
+      lexical.getEditorState().read(() => {
+        text = $getRoot().getTextContent();
+      });
+      return text;
+    },
+
+    registerUpdateListener(listener: () => void): () => void {
+      return lexical.registerUpdateListener(() => listener());
     },
 
     toJSON(): SerializedEditorState {

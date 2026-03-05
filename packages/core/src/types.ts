@@ -1,4 +1,4 @@
-import type { EditorState, SerializedEditorState } from "lexical";
+import type { SerializedEditorState } from "lexical";
 
 // ─── Command ────────────────────────────────────────────────────────────────
 
@@ -123,8 +123,12 @@ export interface LexifyEditor {
     command: LexifyCommand<TPayload>,
     payload: TPayload,
   ): void;
-  /** Read the current editor state as a serializable snapshot. */
-  getEditorState(): EditorState;
+  /** Read the current editor state as an opaque snapshot. Pass it to `setEditorState` to restore. */
+  getEditorState(): unknown;
+  /** Extract all plain text from the editor content. */
+  getTextContent(): string;
+  /** Subscribe to editor state updates. Returns an unsubscribe function. */
+  registerUpdateListener(listener: () => void): () => void;
   /** Serialize the current state to JSON. */
   toJSON(): SerializedEditorState;
   /** Tear down the editor and all registered plugins. */

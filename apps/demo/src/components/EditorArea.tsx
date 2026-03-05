@@ -1,18 +1,17 @@
 import { useEffect, useRef } from "react";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useLexifyEditor } from "@lexify/react";
 
 interface EditorAreaProps {
   onCharCountChange?: (count: number) => void;
 }
 
 function CharCounter({ onChange }: { onChange?: (n: number) => void }) {
-  const [editor] = useLexicalComposerContext();
+  const editor = useLexifyEditor();
   const prevCount = useRef(0);
 
   useEffect(() => {
     return editor.registerUpdateListener(() => {
-      const text = editor.getRootElement()?.textContent ?? "";
-      const count = text.length;
+      const count = editor.getTextContent().length;
       if (count !== prevCount.current) {
         prevCount.current = count;
         onChange?.(count);
@@ -22,9 +21,8 @@ function CharCounter({ onChange }: { onChange?: (n: number) => void }) {
 
   return (
     <button
-      onClick={() =>
-        console.log("Editor state:", editor.getEditorState().toJSON())
-      }
+      type="button"
+      onClick={() => console.log("Editor state:", editor.toJSON())}
     >
       Log Editor State
     </button>

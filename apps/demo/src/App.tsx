@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { LexifyComposer } from "@lexify/react";
 import { baseTheme } from "@lexify/themes";
-import { boldPlugin } from "@lexify/plugins";
-import { italicPlugin } from "@lexify/plugins";
-import { underlinePlugin } from "@lexify/plugins";
-import { strikethroughPlugin } from "@lexify/plugins";
-import { codePlugin } from "@lexify/plugins";
-import { linkPlugin } from "@lexify/plugins";
-import { fontSizePlugin } from "@lexify/plugins";
-import { fontColorPlugin } from "@lexify/plugins";
-import { textAlignPlugin } from "@lexify/plugins";
-import { headingPlugin } from "@lexify/plugins";
-import { listPlugin } from "@lexify/plugins";
-import { historyPlugin } from "@lexify/plugins";
+import {
+  boldPlugin,
+  italicPlugin,
+  underlinePlugin,
+  strikethroughPlugin,
+  codePlugin,
+  linkPlugin,
+  fontSizePlugin,
+  fontColorPlugin,
+  textAlignPlugin,
+  headingPlugin,
+  listPlugin,
+  historyPlugin,
+} from "@lexify/plugins";
 import { EditorToolbar } from "./components/EditorToolbar.js";
 import { EditorArea } from "./components/EditorArea.js";
 
