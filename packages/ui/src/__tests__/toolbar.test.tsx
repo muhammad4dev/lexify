@@ -17,6 +17,8 @@ function createMockEditor(): LexifyEditor {
     toJSON: vi.fn(),
     destroy: vi.fn(),
     update: vi.fn(),
+    getTextContent: vi.fn(),
+    registerUpdateListener: vi.fn(() => vi.fn()),
   };
 }
 

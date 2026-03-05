@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-pnpm add @lexify/react @lexify/core lexical @lexical/react
+pnpm add @lexify/react @lexify/core
 ```
 
 ## Usage

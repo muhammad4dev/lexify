@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-pnpm add @lexify/core lexical
+pnpm add @lexify/core
 ```
 
 ## Overview

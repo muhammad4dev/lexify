@@ -8,9 +8,6 @@ plugins, mounting it in React, applying a theme, and building a custom toolbar.
 ## 1. Installation
 
 ```bash
-# Required peer dependencies
-pnpm add lexical @lexical/react
-
 # Core packages
 pnpm add @lexify/core @lexify/react
 

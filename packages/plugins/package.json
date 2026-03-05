@@ -35,9 +35,6 @@
     "@lexical/selection": "^0.31.1",
     "lexical": "^0.31.1"
   },
-  "peerDependencies": {
-    "lexical": "^0.31.1"
-  },
   "devDependencies": {
     "tsup": "^8.4.0",
     "vitest": "^3.0.9"

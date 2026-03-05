@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-pnpm add @lexify/ui @lexify/plugins @lexify/react @lexify/core lexical
+pnpm add @lexify/ui @lexify/plugins @lexify/react @lexify/core
 # peer deps: react, react-dom
 ```
 

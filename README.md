@@ -36,9 +36,6 @@ and the command system is fully typed and testable.
 ### Install
 
 ```bash
-# Required peer deps
-pnpm add lexical @lexical/react
-
 # Core
 pnpm add @lexify/core @lexify/react
 

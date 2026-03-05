@@ -33,9 +33,6 @@
     "tsup": "^8.4.0",
     "vitest": "^3.0.9"
   },
-  "peerDependencies": {
-    "lexical": "^0.31.1"
-  },
   "license": "MIT",
   "homepage": "https://muhammad4dev.github.io/lexify",
   "repository": {
