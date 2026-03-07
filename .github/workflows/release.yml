@@ -4,6 +4,21 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - custom
+      version:
+        description: "Custom semver version (required when bump=custom), e.g. 0.2.0"
+        required: false
+        type: string
 
 jobs:
   release:
@@ -16,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -32,6 +49,55 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Bump versions across packages
+        if: github.event_name == 'workflow_dispatch'
+        id: bump
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          bump_type="${{ inputs.bump }}"
+          custom_version="${{ inputs.version }}"
+
+          if [[ "$bump_type" == "custom" ]]; then
+            if [[ -z "$custom_version" ]]; then
+              echo "Input 'version' is required when bump=custom."
+              exit 1
+            fi
+            target="$custom_version"
+          else
+            target="$bump_type"
+          fi
+
+          pnpm -r --filter './packages/**' exec -- npm version "$target" --no-git-tag-version
+          version=$(node -p "require('./packages/core/package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve version from tag
+        if: github.event_name == 'push'
+        id: from_tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push bumped versions
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version="${{ steps.bump.outputs.version }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add packages/**/package.json
+          git commit -m "chore(release): v$version"
+          git tag "v$version"
+          git push origin HEAD --follow-tags
+
       - name: Build all packages
         run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' build
 
@@ -42,11 +108,12 @@ jobs:
         run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' test
 
       - name: Publish to npm
-        run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' publish --access public --no-git-checks
+        run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' publish --access public --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.bump.outputs.version || steps.from_tag.outputs.version }}
           generate_release_notes: true
