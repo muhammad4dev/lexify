@@ -1,7 +1,7 @@
 {
   "name": "@lexify/core",
-  "version": "0.0.1",
-  "description": "Lexify engine abstraction \u2014 no React, no UI",
+  "version": "0.0.2",
+  "description": "Lexify engine abstraction — no React, no UI",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

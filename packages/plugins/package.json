@@ -1,7 +1,7 @@
 {
   "name": "@lexify/plugins",
-  "version": "0.0.1",
-  "description": "All Lexify plugins \u2014 tree-shakeable, single install",
+  "version": "0.0.2",
+  "description": "All Lexify plugins — tree-shakeable, single install",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
