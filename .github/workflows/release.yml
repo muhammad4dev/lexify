@@ -69,7 +69,7 @@ jobs:
             target="$bump_type"
           fi
 
-          pnpm -r --filter './packages/**' exec -- npm version "$target" --no-git-tag-version
+          pnpm -r --filter './packages/**' exec -- pnpm version "$target" --no-git-tag-version
           version=$(node -p "require('./packages/core/package.json').version")
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -101,6 +101,30 @@ jobs:
       - name: Build all packages
         run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' --filter='!@lexify/test-utils' build
 
+      - name: Verify packed manifests do not contain workspace deps
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          out_dir="/tmp/lexify-pack"
+          rm -rf "$out_dir"
+          mkdir -p "$out_dir"
+
+          for pkg in packages/core packages/plugins packages/react packages/themes packages/ui; do
+            pnpm --dir "$pkg" pack --pack-destination "$out_dir" > /dev/null
+          done
+
+          for tgz in "$out_dir"/*.tgz; do
+            manifest=$(tar -xOf "$tgz" package/package.json)
+            if echo "$manifest" | grep -q '"workspace:\*"'; then
+              echo "Found workspace protocol in packed manifest: $tgz"
+              echo "$manifest"
+              exit 1
+            fi
+          done
+
+          echo "Packed manifests look valid."
+
       # - name: Typecheck
       #   run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' typecheck
 
@@ -108,10 +132,19 @@ jobs:
       #   run: pnpm -r --filter='!@lexify/demo' --filter='!@lexify/e2e' test
 
       - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          for pkg in packages/core packages/plugins packages/react packages/themes packages/ui; do
-            npm publish ./$pkg
-          done
+          pnpm -r \
+            --filter @lexify/core \
+            --filter @lexify/plugins \
+            --filter @lexify/react \
+            --filter @lexify/themes \
+            --filter @lexify/ui \
+            publish \
+            --access public \
+            --no-git-checks \
+            --report-summary
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
