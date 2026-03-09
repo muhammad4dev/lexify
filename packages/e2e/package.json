@@ -1,6 +1,6 @@
 {
   "name": "@lexify/e2e",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "End-to-end tests for Lexify",
   "private": true,
   "scripts": {
